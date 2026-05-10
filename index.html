@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jaed Delosa — Cyclist. Creator.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://tally.so">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg:      #080c08;
+      --surface: #0d120d;
+      --panel:   #111811;
+      --border:  #1e2d1e;
+      --green:   #39ff6a;
+      --gdim:    #1a7a30;
+      --gfaint:  rgba(57,255,106,0.06);
+      --muted:   #3a5c3a;
+      --text:    #c8e6c8;
+      --tdim:    #5c8a5c;
+      --white:   #eaf5ea;
+      --amber:   #f0b429;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .bg-lines {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .bg-lines::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(57,255,106,0.018) 60px,rgba(57,255,106,0.018) 61px);
+    }
+    .speed-line {
+      position: absolute; height: 1px;
+      background: linear-gradient(90deg,transparent,var(--green),transparent);
+      opacity: 0;
+      animation: sline var(--dur,2.4s) linear var(--delay,0s) infinite;
+    }
+    @keyframes sline {
+      0%   { left:-60%; width:60%; opacity:0; }
+      10%  { opacity:.35; }
+      80%  { opacity:.12; }
+      100% { left:110%; opacity:0; }
+    }
+    .bg-dots {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: radial-gradient(circle,rgba(57,255,106,.07) 1px,transparent 1px);
+      background-size: 28px 28px;
+    }
+    .page-wrap {
+      position: relative; z-index: 1;
+      max-width: 780px; margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-id {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .7rem; letter-spacing: .14em; color: var(--green);
+    }
+    .topbar-status {
+      display: flex; align-items: center; gap: .5rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .65rem; color: var(--tdim);
+    }
+    .sdot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100%{ opacity:1; transform:scale(1); }
+      50%    { opacity:.4; transform:scale(.75); }
+    }
+    .hero {
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .hero-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gdim); margin-bottom: 1.2rem;
+    }
+    .hero-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(4rem,13vw,7.5rem);
+      font-weight: 900; line-height: .88;
+      letter-spacing: -.01em;
+      color: var(--white); text-transform: uppercase;
+    }
+    .hero-name span { color: var(--green); }
+    .hero-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .75rem; color: var(--tdim);
+      letter-spacing: .12em; margin: 1rem 0 2rem;
+    }
+    .action-row { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .btn {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+      text-decoration: none; padding: .75rem 1.5rem;
+      display: inline-flex; align-items: center; gap: .5rem;
+      transition: all .18s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--green); color: #030703; font-weight: 700; }
+    .btn-primary:hover { background: #5fffaa; transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--green); border: 1px solid var(--gdim); }
+    .btn-outline:hover { background: var(--gfaint); border-color: var(--green); }
+    .btn-ghost { background: transparent; color: var(--tdim); border: 1px solid var(--border); }
+    .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
+    .chainring-wrap {
+      position: absolute; top: 1rem; right: -3rem;
+      opacity: .07; pointer-events: none;
+    }
+    .metrics-strip {
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); margin: 2.5rem 0;
+    }
+    .metric-cell {
+      background: var(--panel); padding: 1.1rem 1.3rem;
+      position: relative;
+    }
+    .metric-cell::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: var(--green); opacity: 0; transition: opacity .2s;
+    }
+    .metric-cell:hover::before { opacity: 1; }
+    .metric-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .6rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--tdim); margin-bottom: .5rem;
+    }
+    .metric-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.6rem; font-weight: 700; color: var(--green); line-height: 1;
+    }
+    .metric-unit {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .62rem; color: var(--tdim); margin-top: .25rem;
+    }
+    .section { margin: 2.5rem 0; }
+    .section-header {
+      display: flex; align-items: center; gap: .8rem; margin-bottom: 1.2rem;
+    }
+    .section-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .6rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--green); background: var(--gfaint);
+      border: 1px solid var(--gdim); padding: .25rem .65rem;
+    }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+    .bio-text {
+      font-size: 1rem; font-weight: 300; line-height: 1.8;
+      color: var(--text); max-width: 540px;
+    }
+    .bio-text strong { color: var(--white); font-weight: 600; }
+    .bio-text .hl { color: var(--green); font-weight: 600; }
+    .telemetry {
+      background: var(--panel); border: 1px solid var(--border);
+      padding: 1.4rem 1.6rem; margin: 2.5rem 0;
+      position: relative; overflow: hidden;
+    }
+    .telemetry::after {
+      content: ''; position: absolute;
+      top: 0; right: 0; width: 40%; height: 2px;
+      background: linear-gradient(90deg,transparent,var(--green));
+    }
+    .tele-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .55rem 0; border-bottom: 1px solid var(--border);
+    }
+    .tele-row:last-child { border-bottom: none; }
+    .tele-key {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .62rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--tdim);
+    }
+    .tele-val {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .75rem; color: var(--white);
+    }
+    .tele-val.g { color: var(--green); }
+    .tele-val.a { color: var(--amber); }
+    .divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin: .5rem 0;
+      color: var(--muted);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .6rem; letter-spacing: .15em;
+    }
+    .divider::before,.divider::after {
+      content:''; flex:1; height:1px; background: var(--border);
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.8rem 0 0; margin-top: 3rem;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-id {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .62rem; letter-spacing: .12em; color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-link {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .6rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color .15s;
+    }
+    .footer-link:hover { color: var(--green); }
+    #reopenBtn {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--green); color: #030703;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+      font-weight: 700; border: none; cursor: pointer;
+      padding: .8rem 1.5rem;
+      display: none; align-items: center; gap: .5rem;
+      z-index: 100; transition: background .15s, transform .15s;
+    }
+    #reopenBtn:hover { background: #5fffaa; transform: translateY(-2px); }
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(4,8,4,.95);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 200; padding: 1rem;
+      transition: opacity .25s, visibility .25s;
+    }
+    .modal-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .modal-card {
+      background: var(--panel); border: 1px solid var(--border);
+      width: 100%; max-width: 640px; max-height: 90vh;
+      overflow-y: auto; position: relative;
+      animation: slideUp .25s ease;
+    }
+    .modal-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: var(--green);
+    }
+    @keyframes slideUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .modal-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 1.8rem 2rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-mlabel {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--green); margin-bottom: .4rem;
+    }
+    .modal-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.6rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .02em;
+      color: var(--white);
+    }
+    .close-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--tdim); cursor: pointer;
+      width: 32px; height: 32px; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Share Tech Mono', monospace;
+      transition: color .15s, border-color .15s;
+    }
+    .close-btn:hover { color: #f87171; border-color: #f87171; }
+    .modal-body { padding: 1.6rem 2rem 2rem; }
+    .modal-note {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .68rem; letter-spacing: .06em;
+      color: var(--tdim);
+      border-left: 2px solid var(--gdim);
+      padding-left: .8rem; margin-bottom: 1.4rem;
+      line-height: 1.7;
+    }
+    .tally-wrap { position: relative; min-height: 360px; }
+    .tally-spin {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 28px; height: 28px;
+      border: 2px solid var(--border);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin .7s linear infinite; z-index: 1;
+    }
+    @keyframes spin { to { transform:translate(-50%,-50%) rotate(360deg); } }
+    .tally-wrap iframe {
+      width: 100%; border: none; background: transparent;
+      position: relative; z-index: 2;
+      opacity: 0; transition: opacity .3s;
+    }
+    .tally-wrap iframe.loaded { opacity: 1; }
+    .modal-actions {
+      margin-top: 1.4rem; padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+      display: flex; flex-wrap: wrap; gap: .6rem;
+    }
+    .modal-foot {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .6rem; letter-spacing: .08em;
+      color: var(--muted); margin-top: 1rem;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(16px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .anim { animation: fadeUp .5s ease both; }
+    .d1{animation-delay:.05s} .d2{animation-delay:.15s}
+    .d3{animation-delay:.25s} .d4{animation-delay:.35s}
+    .d5{animation-delay:.45s}
+    @media(max-width:520px){
+      .metrics-strip{grid-template-columns:1fr 1fr;}
+      .modal-top,.modal-body{padding-left:1.2rem;padding-right:1.2rem;}
+      footer{flex-direction:column;align-items:flex-start;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-lines" aria-hidden="true">
+  <div class="speed-line" style="top:12%;--dur:2.1s;--delay:0s;width:55%"></div>
+  <div class="speed-line" style="top:28%;--dur:3.2s;--delay:.6s;width:40%"></div>
+  <div class="speed-line" style="top:45%;--dur:2.7s;--delay:1.2s;width:65%"></div>
+  <div class="speed-line" style="top:61%;--dur:1.9s;--delay:.3s;width:35%"></div>
+  <div class="speed-line" style="top:76%;--dur:3.5s;--delay:.9s;width:50%"></div>
+  <div class="speed-line" style="top:88%;--dur:2.3s;--delay:1.6s;width:45%"></div>
+</div>
+<div class="bg-dots" aria-hidden="true"></div>
+
+<div class="page-wrap">
+
+  <nav class="topbar anim d1">
+    <span class="topbar-id">RIDER_ID :: JD-2025-PH</span>
+    <div class="topbar-status">
+      <div class="sdot"></div>
+      LIVE · CEBU, PH
+    </div>
+  </nav>
+
+  <header class="hero anim d2">
+    <div class="chainring-wrap" aria-hidden="true">
+      <svg width="280" height="280" viewBox="0 0 260 260" fill="none">
+        <circle cx="130" cy="130" r="120" stroke="#39ff6a" stroke-width="6"/>
+        <circle cx="130" cy="130" r="100" stroke="#39ff6a" stroke-width="2"/>
+        <circle cx="130" cy="130" r="30"  stroke="#39ff6a" stroke-width="4"/>
+        <circle cx="130" cy="130" r="18"  stroke="#39ff6a" stroke-width="2"/>
+        <g stroke="#39ff6a" stroke-width="5" stroke-linecap="round">
+          <line x1="130" y1="4"   x2="130" y2="14"/>
+          <line x1="162" y1="8"   x2="158" y2="17"/>
+          <line x1="191" y1="20"  x2="184" y2="27"/>
+          <line x1="212" y1="40"  x2="203" y2="45"/>
+          <line x1="246" y1="58"  x2="238" y2="65"/>
+          <line x1="252" y1="90"  x2="242" y2="92"/>
+          <line x1="256" y1="130" x2="246" y2="130"/>
+          <line x1="252" y1="170" x2="242" y2="168"/>
+          <line x1="246" y1="202" x2="238" y2="195"/>
+          <line x1="212" y1="220" x2="203" y2="215"/>
+          <line x1="191" y1="240" x2="184" y2="233"/>
+          <line x1="162" y1="252" x2="158" y2="243"/>
+          <line x1="130" y1="256" x2="130" y2="246"/>
+          <line x1="98"  y1="252" x2="102" y2="243"/>
+          <line x1="69"  y1="240" x2="76"  y2="233"/>
+          <line x1="48"  y1="220" x2="57"  y2="215"/>
+          <line x1="14"  y1="202" x2="22"  y2="195"/>
+          <line x1="8"   y1="170" x2="18"  y2="168"/>
+          <line x1="4"   y1="130" x2="14"  y2="130"/>
+          <line x1="8"   y1="90"  x2="18"  y2="92"/>
+          <line x1="14"  y1="58"  x2="22"  y2="65"/>
+          <line x1="48"  y1="40"  x2="57"  y2="45"/>
+          <line x1="69"  y1="20"  x2="76"  y2="27"/>
+          <line x1="98"  y1="8"   x2="102" y2="17"/>
+        </g>
+        <g stroke="#39ff6a" stroke-width="1.5" opacity=".5">
+          <line x1="130" y1="100" x2="130" y2="50"/>
+          <line x1="130" y1="160" x2="130" y2="210"/>
+          <line x1="100" y1="130" x2="50"  y2="130"/>
+          <line x1="160" y1="130" x2="210" y2="130"/>
+          <line x1="109" y1="109" x2="74"  y2="74"/>
+          <line x1="151" y1="151" x2="186" y2="186"/>
+          <line x1="151" y1="109" x2="186" y2="74"/>
+          <line x1="109" y1="151" x2="74"  y2="186"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="hero-label">&gt; RIDER PROFILE LOADED_</div>
+    <div class="hero-name">JAED<br><span>DELOSA</span></div>
+    <div class="hero-sub">// CYCLIST &middot; CREATOR &middot; STORY_COLLECTOR &middot; PH</div>
+    <div class="action-row">
+      <button class="btn btn-primary" id="openModalBtn">&#9654; PING JAED</button>
+      <a href="https://home.jaeddelosa.workers.dev/" target="_blank" rel="noopener" class="btn btn-outline">// PORTFOLIO</a>
+      <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" rel="noopener" class="btn btn-ghost">$ GOTRADE</a>
+    </div>
+  </header>
+
+  <div class="metrics-strip anim d3">
+    <div class="metric-cell">
+      <div class="metric-label">Base</div>
+      <div class="metric-value">CEBU</div>
+      <div class="metric-unit">Location &middot; Philippines</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label">Mode</div>
+      <div class="metric-value">2&times;</div>
+      <div class="metric-unit">Wheels &middot; Always</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label">Status</div>
+      <div class="metric-value">ON</div>
+      <div class="metric-unit">Active &middot; Riding</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label">Ideas</div>
+      <div class="metric-value">&infin;</div>
+      <div class="metric-unit">Queue &middot; Open</div>
+    </div>
+  </div>
+
+  <section class="section anim d4">
+    <div class="section-header">
+      <span class="section-tag">// About</span>
+      <div class="section-line"></div>
+    </div>
+    <p class="bio-text">
+      Long-distance cyclist who logs miles and <strong>collects stories</strong> along the way. If you've got a <span class="hl">trail recommendation</span>, a half-baked idea, or something worth pitching — the channel is open. Also investing via <strong>GoTrade</strong>. Ask me about it.
+    </p>
+  </section>
+
+  <div class="telemetry anim d4">
+    <div class="tele-row">
+      <span class="tele-key">open_to</span>
+      <span class="tele-val g">Ride invites &middot; Trail tips &middot; Collabs</span>
+    </div>
+    <div class="tele-row">
+      <span class="tele-key">currently_into</span>
+      <span class="tele-val">Long-distance rides &middot; Storytelling</span>
+    </div>
+    <div class="tele-row">
+      <span class="tele-key">investing</span>
+      <span class="tele-val a">Active via GoTrade &rarr;</span>
+    </div>
+    <div class="tele-row">
+      <span class="tele-key">response_time</span>
+      <span class="tele-val g">Fast &middot; Usually</span>
+    </div>
+    <div class="tele-row">
+      <span class="tele-key">portfolio</span>
+      <span class="tele-val">home.jaeddelosa.workers.dev</span>
+    </div>
+  </div>
+
+  <div class="divider anim d5">-- msg --</div>
+
+  <section class="section anim d5">
+    <div class="section-header">
+      <span class="section-tag">// Contact</span>
+      <div class="section-line"></div>
+    </div>
+    <p class="bio-text" style="margin-bottom:1.4rem;">
+      Drop a message — whether you want to <strong>share a ride</strong>, suggest a route, or just say hello.
+    </p>
+    <button class="btn btn-primary" id="openModalBtn2">&#9654; OPEN COMMS</button>
+  </section>
+
+  <footer>
+    <span class="footer-id">&copy; 2025 &middot; JAED_DELOSA &middot; JD-2025-PH</span>
+    <div class="footer-links">
+      <a href="https://home.jaeddelosa.workers.dev/" target="_blank" rel="noopener" class="footer-link">Portfolio</a>
+      <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" rel="noopener" class="footer-link">GoTrade</a>
+    </div>
+  </footer>
+
+</div>
+
+<button id="reopenBtn">&#9654; PING JAED</button>
+
+<div class="modal-overlay hidden" id="shareModal">
+  <div class="modal-card">
+    <div class="modal-top">
+      <div>
+        <div class="modal-mlabel">&gt; COMMS_OPEN &middot; TRANSMITTING_</div>
+        <div class="modal-title">Message Jaed</div>
+      </div>
+      <button class="close-btn" id="closeModalBtn" aria-label="Close">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-note">
+        Ride invite, trail tip, weird idea, or anything else — it all routes here. Jaed reads everything.
+      </p>
+      <div class="tally-wrap">
+        <div class="tally-spin" id="tallySpinner"></div>
+        <iframe
+          src="https://tally.so/embed/mOMAqa?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+          height="380"
+          title="Message Jaed"
+          onload="this.classList.add('loaded'); document.getElementById('tallySpinner').style.display='none';"
+        ></iframe>
+      </div>
+      <div class="modal-actions">
+        <a href="https://home.jaeddelosa.workers.dev/" target="_blank" class="btn btn-ghost" style="font-size:.65rem;padding:.6rem 1.1rem;">// Portfolio</a>
+        <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" class="btn btn-outline" style="font-size:.65rem;padding:.6rem 1.1rem;color:var(--amber);border-color:rgba(240,180,41,.3);">$ Invest via GoTrade</a>
+      </div>
+      <p class="modal-foot">&gt; MSG GOES DIRECT TO JAED &middot; RIDE_SAFE &middot; INVEST_WISELY_</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var modal=document.getElementById('shareModal');
+  var reopen=document.getElementById('reopenBtn');
+  function open(){modal.classList.remove('hidden');document.body.style.overflow='hidden';reopen.style.display='none';}
+  function close(){modal.classList.add('hidden');document.body.style.overflow='';reopen.style.display='flex';}
+  document.getElementById('openModalBtn').addEventListener('click',open);
+  document.getElementById('openModalBtn2').addEventListener('click',open);
+  document.getElementById('closeModalBtn').addEventListener('click',close);
+  reopen.addEventListener('click',open);
+  modal.addEventListener('click',function(e){if(e.target===modal)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!modal.classList.contains('hidden'))close();});
+})();
+</script>
+</body>
+</html>
