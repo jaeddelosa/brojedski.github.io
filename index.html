@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jaed Delosa — Cyclist. Freelancer.</title>
+  <title>Jaed Delosa — Cyclist. Freelancer. Libertarian.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
@@ -326,6 +326,50 @@
       from { opacity:0; transform:translateY(16px); }
       to   { opacity:1; transform:translateY(0); }
     }
+    .principle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 1.2rem;
+    }
+    .principle-card {
+      background: var(--panel);
+      padding: 1.4rem 1.5rem;
+      position: relative;
+      transition: background .2s;
+    }
+    .principle-card:hover { background: #131a13; }
+    .principle-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 1px;
+      background: var(--border);
+    }
+    .principle-icon {
+      font-size: 1.2rem; margin-bottom: .7rem;
+    }
+    .principle-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .6rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: .75rem; line-height: 1.5;
+    }
+    .principle-body {
+      font-size: .85rem; font-weight: 300;
+      line-height: 1.75; color: var(--text);
+    }
+    .lib-note {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .8rem 1rem;
+      background: var(--gfaint);
+      border: 1px solid var(--gdim);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .68rem;
+    }
+    @media(max-width:520px){
+      .principle-grid { grid-template-columns: 1fr; }
+    }
     .anim { animation: fadeUp .5s ease both; }
     .d1{animation-delay:.05s} .d2{animation-delay:.15s}
     .d3{animation-delay:.25s} .d4{animation-delay:.35s}
@@ -407,7 +451,7 @@
 
     <div class="hero-label">&gt; RIDER PROFILE LOADED_</div>
     <div class="hero-name">JAED<br><span>DELOSA</span></div>
-    <div class="hero-sub">// CYCLIST &middot; FREELANCER &middot; STORY_COLLECTOR &middot; PH</div>
+    <div class="hero-sub">// CYCLIST &middot; FREELANCER &middot; LIBERTARIAN &middot; STORY_COLLECTOR &middot; PH</div>
     <div class="action-row">
       <button class="btn btn-primary" id="openModalBtn">&#9654; MESSAGE JAED</button>
       <a href="https://jaeddelosa.tech/" target="_blank" rel="noopener" class="btn btn-outline">// PORTFOLIO</a>
@@ -446,6 +490,12 @@
     <p class="bio-text">
       Long-distance cyclist who logs miles and <strong>collects stories</strong> along the way. If you've got a <span class="hl">trail recommendation</span>, a half-baked idea, or something worth pitching — the channel is open. Also investing via <strong>GoTrade</strong>. Ask me about it.
     </p>
+    <p class="bio-text" style="margin-top:1rem;">
+      Off the bike, I'm a <span class="hl">libertarian by conviction</span> — not by fashion. I believe the individual, not the bureaucracy, is the rightful engine of progress. Taxes extracted to fund <strong>bloated agencies</strong>, redundant offices, and projects nobody asked for aren't public service — they're extraction. Every peso siphoned into government waste is a peso that won't fund your next idea, your family, or your ride.
+    </p>
+    <p class="bio-text" style="margin-top:1rem;">
+      I also believe in <strong>open systems</strong>. When knowledge, code, or infrastructure is locked behind institutional gatekeepers, the people who actually care — the tinkerers, the builders, the riders who know the road — are shut out. The best improvements to anything have always come from those closest to the problem, not those furthest from it sitting behind a desk.
+    </p>
   </section>
 
   <div class="telemetry anim d4">
@@ -456,6 +506,14 @@
     <div class="tele-row">
       <span class="tele-key">currently_into</span>
       <span class="tele-val">Long-distance rides &middot; Storytelling</span>
+    </div>
+    <div class="tele-row">
+      <span class="tele-key">idealism</span>
+      <span class="tele-val g">Libertarian &middot; Individual > State</span>
+    </div>
+    <div class="tele-row">
+      <span class="tele-key">stance</span>
+      <span class="tele-val">Open-source &middot; Anti-waste &middot; Pro-freedom</span>
     </div>
     <div class="tele-row">
       <span class="tele-key">investing</span>
@@ -471,6 +529,57 @@
     </div>
   </div>
 
+  <div class="divider anim d5">-- ideology --</div>
+
+  <section class="section anim d5" id="ideology">
+    <div class="section-header">
+      <span class="section-tag">// Principles</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="principle-grid">
+
+      <div class="principle-card">
+        <div class="principle-icon">⚡</div>
+        <div class="principle-title">GOVERNMENT WASTE IS A TAX ON YOUR FUTURE</div>
+        <p class="principle-body">
+          Every bureaucracy expands to consume the resources available to it. Public funds get funneled into redundant agencies, vanity projects, and positions that exist to justify other positions. The rider on the road pays for all of it — and gets potholes in return. Taxation without accountability isn't governance; it's extraction dressed up in paperwork.
+        </p>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-icon">🔓</div>
+        <div class="principle-title">CLOSED SYSTEMS PROTECT THE WRONG PEOPLE</div>
+        <p class="principle-body">
+          When infrastructure, code, research, or civic tools are locked behind institutional walls, the people who actually use them — and could improve them — are shut out. Open systems invite the riders who know the terrain. Closed ones protect the mapmakers who've never left the office. The best fixes always come from those closest to the problem.
+        </p>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-icon">🚴</div>
+        <div class="principle-title">THE INDIVIDUAL IS THE UNIT OF PROGRESS</div>
+        <p class="principle-body">
+          On a long-distance ride, no committee gets you through the climb. You do — with preparation, will, and the people you choose to roll with. Libertarianism isn't about isolation; it's about voluntary cooperation over coerced compliance. Communities built on mutual consent and shared purpose are stronger than those built on mandates.
+        </p>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-icon">📉</div>
+        <div class="principle-title">LESS FRICTION, MORE MOVEMENT</div>
+        <p class="principle-body">
+          Regulations that exist to protect incumbents, licensing requirements designed to limit competition, and subsidies that reward the politically connected — these are drag, not lift. A lighter state means faster people. The goal isn't zero structure; it's structure that actually earns its place instead of assuming it.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="lib-note">
+      <span class="tele-key">&gt; core_belief</span>
+      <span class="tele-val g">&nbsp;// You own yourself. Act like it.</span>
+    </div>
+
+  </section>
+
   <div class="divider anim d5">-- msg --</div>
 
   <section class="section anim d5">
@@ -485,7 +594,7 @@
   </section>
 
   <footer>
-    <span class="footer-id">&copy; 2025 &middot; JAED_DELOSA &middot; JD-2025-PH</span>
+    <span class="footer-id">&copy; 2025 &middot; JAED_DELOSA &middot; JD-2025-PH &middot; LIBERTARIAN</span>
     <div class="footer-links">
       <a href="https://home.jaeddelosa.workers.dev/" target="_blank" rel="noopener" class="footer-link">Portfolio</a>
       <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" rel="noopener" class="footer-link">GoTrade</a>
