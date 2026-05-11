@@ -3,304 +3,295 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jaed Delosa — Cyclist. Freelancer. Digital Nomad</title>
+  <title>Jaed Delosa — Cyclist. Freelancer. Somewhere on a road.</title>
   <link rel="icon" type="image/jpeg" href="jed.jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://tally.so">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
     :root {
-      --bg:      #080c08;
-      --surface: #0d120d;
-      --panel:   #111811;
-      --border:  #1e2d1e;
-      --green:   #39ff6a;
-      --gdim:    #1a7a30;
-      --gfaint:  rgba(57,255,106,0.06);
-      --muted:   #3a5c3a;
-      --text:    #c8e6c8;
-      --tdim:    #5c8a5c;
-      --white:   #eaf5ea;
-      --amber:   #f0b429;
+      --bg: #faf9f6;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --border-soft: #f0ece4;
+      --text: #2d2a25;
+      --muted: #8a8278;
+      --hint: #b5afa5;
+      --green: #3a7d44;
+      --green-light: #edf5ef;
+      --green-mid: #c2ddc8;
+      --amber: #c17f24;
+      --amber-light: #fdf3e3;
+      --warm: #f5f2ec;
     }
+
     html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Barlow', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
     }
-    .bg-lines {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 0; overflow: hidden;
-    }
-    .bg-lines::before {
+
+    body::before {
       content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(57,255,106,0.018) 60px,rgba(57,255,106,0.018) 61px);
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,.04) 1px, transparent 0);
+      background-size: 24px 24px;
+      pointer-events: none; z-index: 0;
     }
-    .speed-line {
-      position: absolute; height: 1px;
-      background: linear-gradient(90deg,transparent,var(--green),transparent);
-      opacity: 0;
-      animation: sline var(--dur,2.4s) linear var(--delay,0s) infinite;
-    }
-    @keyframes sline {
-      0%   { left:-60%; width:60%; opacity:0; }
-      10%  { opacity:.35; }
-      80%  { opacity:.12; }
-      100% { left:110%; opacity:0; }
-    }
-    .bg-dots {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background-image: radial-gradient(circle,rgba(57,255,106,.07) 1px,transparent 1px);
-      background-size: 28px 28px;
-    }
+
     .page-wrap {
       position: relative; z-index: 1;
-      max-width: 780px; margin: 0 auto;
-      padding: 0 1.5rem 4rem;
+      max-width: 740px; margin: 0 auto;
+      padding: 0 2rem 5rem;
     }
+
     .topbar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.4rem 0;
+      padding: 1.6rem 0 1.4rem;
       border-bottom: 1px solid var(--border);
     }
-    .topbar-id {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .7rem; letter-spacing: .14em; color: var(--green);
+    .topbar-name {
+      font-size: .85rem; font-weight: 500; color: var(--text);
     }
     .topbar-status {
-      display: flex; align-items: center; gap: .5rem;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .65rem; color: var(--tdim);
+      display: flex; align-items: center; gap: .45rem;
+      font-size: .78rem; color: var(--muted);
     }
     .sdot {
-      width: 6px; height: 6px; border-radius: 50%;
+      width: 7px; height: 7px; border-radius: 50%;
       background: var(--green);
-      animation: pulse 1.8s ease-in-out infinite;
+      animation: pulse 2.2s ease-in-out infinite;
+      flex-shrink: 0;
     }
     @keyframes pulse {
       0%,100%{ opacity:1; transform:scale(1); }
-      50%    { opacity:.4; transform:scale(.75); }
+      50%    { opacity:.45; transform:scale(.72); }
     }
+
     .hero {
-      padding: 3.5rem 0 2.5rem;
+      padding: 4rem 0 3rem;
       border-bottom: 1px solid var(--border);
-      position: relative; overflow: hidden;
     }
-    .hero-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--gdim); margin-bottom: 1.2rem;
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--green-light);
+      color: var(--green);
+      font-size: .78rem; font-weight: 500;
+      padding: .3rem .85rem;
+      border-radius: 100px;
+      margin-bottom: 1.6rem;
     }
     .hero-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(4rem,13vw,7.5rem);
-      font-weight: 900; line-height: .88;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3.4rem, 11vw, 6rem);
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: .6rem;
       letter-spacing: -.01em;
-      color: var(--white); text-transform: uppercase;
     }
-    .hero-name span { color: var(--green); }
-    .hero-sub {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .75rem; color: var(--tdim);
-      letter-spacing: .12em; margin: 1rem 0 2rem;
+    .hero-name em {
+      font-style: italic;
+      color: var(--green);
     }
-    .action-row { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .hero-tagline {
+      font-size: 1.05rem; font-weight: 300;
+      color: var(--muted); line-height: 1.6;
+      margin-bottom: 2.2rem; max-width: 460px;
+    }
+    .action-row {
+      display: flex; flex-wrap: wrap; gap: .65rem; align-items: center;
+    }
     .btn {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
-      text-decoration: none; padding: .75rem 1.5rem;
-      display: inline-flex; align-items: center; gap: .5rem;
-      transition: all .18s; cursor: pointer; border: none;
+      font-size: .85rem; font-weight: 500;
+      text-decoration: none; padding: .65rem 1.35rem;
+      display: inline-flex; align-items: center; gap: .45rem;
+      border-radius: 100px;
+      transition: all .18s ease; cursor: pointer; border: none;
+      line-height: 1;
     }
-    .btn-primary { background: var(--green); color: #030703; font-weight: 700; }
-    .btn-primary:hover { background: #5fffaa; transform: translateY(-2px); }
-    .btn-outline { background: transparent; color: var(--green); border: 1px solid var(--gdim); }
-    .btn-outline:hover { background: var(--gfaint); border-color: var(--green); }
-    .btn-ghost { background: transparent; color: var(--tdim); border: 1px solid var(--border); }
-    .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
-    .chainring-wrap {
-      position: absolute; top: 1rem; right: -3rem;
-      opacity: .07; pointer-events: none;
+    .btn-primary { background: var(--green); color: #fff; }
+    .btn-primary:hover { background: #2e6437; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--border);
     }
-    .metrics-strip {
-      display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+    .btn-outline:hover { border-color: var(--text); background: var(--warm); }
+    .btn-ghost {
+      background: var(--amber-light); color: var(--amber);
+      border: 1.5px solid transparent;
+    }
+    .btn-ghost:hover { border-color: var(--amber); }
+    .btn-icon {
+      background: transparent; color: var(--muted);
+      border: 1.5px solid var(--border);
+      padding: .65rem .75rem;
+      border-radius: 100px;
+      text-decoration: none;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: all .18s ease;
+    }
+    .btn-icon:hover { color: #0a66c2; border-color: #0a66c2; background: #e8f1fb; }
+    .btn-icon svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .stats {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 1px; background: var(--border);
-      border: 1px solid var(--border); margin: 2.5rem 0;
+      border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      margin: 2.5rem 0;
     }
-    .metric-cell {
-      background: var(--panel); padding: 1.1rem 1.3rem;
-      position: relative;
+    .stat { background: var(--surface); padding: 1.2rem 1.4rem; }
+    .stat-label {
+      font-size: .72rem; font-weight: 500; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--hint); margin-bottom: .5rem;
     }
-    .metric-cell::before {
-      content: ''; position: absolute;
-      top: 0; left: 0; right: 0; height: 2px;
-      background: var(--green); opacity: 0; transition: opacity .2s;
+    .stat-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.7rem; color: var(--text); line-height: 1;
     }
-    .metric-cell:hover::before { opacity: 1; }
-    .metric-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .6rem; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--tdim); margin-bottom: .5rem;
-    }
-    .metric-value {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.6rem; font-weight: 700; color: var(--green); line-height: 1;
-    }
-    .metric-unit {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .62rem; color: var(--tdim); margin-top: .25rem;
-    }
-    .section { margin: 2.5rem 0; }
+    .stat-sub { font-size: .75rem; color: var(--muted); margin-top: .3rem; }
+
+    .section { margin: 2.8rem 0; }
     .section-header {
-      display: flex; align-items: center; gap: .8rem; margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.3rem;
     }
-    .section-tag {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .6rem; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--green); background: var(--gfaint);
-      border: 1px solid var(--gdim); padding: .25rem .65rem;
+    .section-label {
+      font-size: .72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--hint); white-space: nowrap;
     }
-    .section-line { flex: 1; height: 1px; background: var(--border); }
+    .section-rule { flex: 1; height: 1px; background: var(--border); }
+
     .bio-text {
-      font-size: 1rem; font-weight: 300; line-height: 1.8;
-      color: var(--text); max-width: 540px;
+      font-size: 1.05rem; font-weight: 400; line-height: 1.82;
+      color: #4a4640; max-width: 560px;
     }
-    .bio-text strong { color: var(--white); font-weight: 600; }
-    .bio-text .hl { color: var(--green); font-weight: 600; }
-    .telemetry {
-      background: var(--panel); border: 1px solid var(--border);
-      padding: 1.4rem 1.6rem; margin: 2.5rem 0;
-      position: relative; overflow: hidden;
+    .bio-text strong { color: var(--text); font-weight: 600; }
+    .bio-text .hl { color: var(--green); }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      margin: 2.5rem 0;
     }
-    .telemetry::after {
-      content: ''; position: absolute;
-      top: 0; right: 0; width: 40%; height: 2px;
-      background: linear-gradient(90deg,transparent,var(--green));
-    }
-    .tele-row {
+    .info-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: .55rem 0; border-bottom: 1px solid var(--border);
+      padding: .85rem 1.4rem;
+      border-bottom: 1px solid var(--border-soft);
     }
-    .tele-row:last-child { border-bottom: none; }
-    .tele-key {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .62rem; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--tdim);
-    }
-    .tele-val {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .75rem; color: var(--white);
-    }
-    .tele-val.g { color: var(--green); }
-    .tele-val.a { color: var(--amber); }
+    .info-row:last-child { border-bottom: none; }
+    .info-key { font-size: .8rem; color: var(--muted); }
+    .info-val { font-size: .85rem; color: var(--text); font-weight: 500; text-align: right; }
+    .info-val.green { color: var(--green); }
+    .info-val.amber { color: var(--amber); }
+
     .divider {
       display: flex; align-items: center; gap: 1rem;
-      margin: .5rem 0;
-      color: var(--muted);
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .6rem; letter-spacing: .15em;
+      margin: .5rem 0; color: var(--hint); font-size: .75rem;
     }
-    .divider::before,.divider::after {
-      content:''; flex:1; height:1px; background: var(--border);
+    .divider::before, .divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
     }
+
     footer {
       border-top: 1px solid var(--border);
-      padding: 1.8rem 0 0; margin-top: 3rem;
+      padding: 1.6rem 0 0; margin-top: 3rem;
       display: flex; justify-content: space-between;
       align-items: center; flex-wrap: wrap; gap: 1rem;
     }
-    .footer-id {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .62rem; letter-spacing: .12em; color: var(--muted);
-    }
-    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-copy { font-size: .78rem; color: var(--hint); }
+    .footer-links { display: flex; gap: 1.4rem; align-items: center; }
     .footer-link {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .6rem; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none; transition: color .15s;
+      font-size: .78rem; color: var(--muted); text-decoration: none; transition: color .15s;
     }
-    .footer-link:hover { color: var(--green); }
+    .footer-link:hover { color: var(--text); }
+    .footer-linkedin {
+      display: inline-flex; align-items: center;
+      color: var(--hint); transition: color .15s; text-decoration: none;
+    }
+    .footer-linkedin:hover { color: #0a66c2; }
+    .footer-linkedin svg { width: 15px; height: 15px; fill: currentColor; }
+
     #reopenBtn {
-      position: fixed; bottom: 2rem; right: 2rem;
-      background: var(--green); color: #030703;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
-      font-weight: 700; border: none; cursor: pointer;
-      padding: .8rem 1.5rem;
-      display: none; align-items: center; gap: .5rem;
-      z-index: 100; transition: background .15s, transform .15s;
+      position: fixed; bottom: 1.8rem; right: 1.8rem;
+      background: var(--green); color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .82rem; font-weight: 500;
+      border: none; cursor: pointer;
+      padding: .75rem 1.4rem;
+      border-radius: 100px;
+      display: none; align-items: center; gap: .45rem;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(58,125,68,.3);
+      transition: background .15s, transform .15s;
     }
-    #reopenBtn:hover { background: #5fffaa; transform: translateY(-2px); }
+    #reopenBtn:hover { background: #2e6437; transform: translateY(-2px); }
+
     .modal-overlay {
       position: fixed; inset: 0;
-      background: rgba(4,8,4,.95);
-      backdrop-filter: blur(8px);
+      background: rgba(30,25,20,.6);
+      backdrop-filter: blur(6px);
       display: flex; align-items: center; justify-content: center;
-      z-index: 200; padding: 1rem;
-      transition: opacity .25s, visibility .25s;
+      z-index: 200; padding: 1.2rem;
+      transition: opacity .22s, visibility .22s;
     }
     .modal-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .modal-card {
-      background: var(--panel); border: 1px solid var(--border);
-      width: 100%; max-width: 640px; max-height: 90vh;
-      overflow-y: auto; position: relative;
-      animation: slideUp .25s ease;
-    }
-    .modal-card::before {
-      content: ''; position: absolute;
-      top: 0; left: 0; right: 0; height: 2px;
-      background: var(--green);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%; max-width: 600px;
+      max-height: 90vh; overflow-y: auto;
+      animation: slideUp .22s ease;
     }
     @keyframes slideUp {
-      from { opacity:0; transform:translateY(18px); }
+      from { opacity:0; transform:translateY(14px); }
       to   { opacity:1; transform:translateY(0); }
     }
     .modal-top {
       display: flex; justify-content: space-between; align-items: flex-start;
-      padding: 1.8rem 2rem 1.2rem;
-      border-bottom: 1px solid var(--border);
+      padding: 1.8rem 2rem 1.4rem;
+      border-bottom: 1px solid var(--border-soft);
     }
-    .modal-mlabel {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--green); margin-bottom: .4rem;
+    .modal-eyebrow {
+      font-size: .72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--green); margin-bottom: .5rem;
     }
     .modal-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.6rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .02em;
-      color: var(--white);
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.7rem; color: var(--text); line-height: 1.1;
     }
     .close-btn {
-      background: transparent; border: 1px solid var(--border);
-      color: var(--tdim); cursor: pointer;
-      width: 32px; height: 32px; font-size: 1rem;
+      background: var(--warm); border: 1px solid var(--border);
+      color: var(--muted); cursor: pointer;
+      width: 34px; height: 34px; font-size: .95rem;
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-      font-family: 'Share Tech Mono', monospace;
-      transition: color .15s, border-color .15s;
+      transition: background .15s, color .15s;
     }
-    .close-btn:hover { color: #f87171; border-color: #f87171; }
+    .close-btn:hover { background: #fce8e8; color: #c0392b; border-color: #f0c5c5; }
     .modal-body { padding: 1.6rem 2rem 2rem; }
     .modal-note {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .68rem; letter-spacing: .06em;
-      color: var(--tdim);
-      border-left: 2px solid var(--gdim);
-      padding-left: .8rem; margin-bottom: 1.4rem;
-      line-height: 1.7;
+      font-size: .95rem; font-weight: 300; color: var(--muted);
+      line-height: 1.75;
+      padding: .9rem 1.1rem;
+      background: var(--warm);
+      border-radius: 10px;
+      margin-bottom: 1.4rem;
     }
     .tally-wrap { position: relative; min-height: 360px; }
     .tally-spin {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%,-50%);
-      width: 28px; height: 28px;
+      width: 26px; height: 26px;
       border: 2px solid var(--border);
       border-top-color: var(--green);
       border-radius: 50%;
@@ -314,201 +305,153 @@
     }
     .tally-wrap iframe.loaded { opacity: 1; }
     .modal-actions {
-      margin-top: 1.4rem; padding-top: 1.2rem;
-      border-top: 1px solid var(--border);
-      display: flex; flex-wrap: wrap; gap: .6rem;
+      margin-top: 1.2rem; padding-top: 1.2rem;
+      border-top: 1px solid var(--border-soft);
+      display: flex; flex-wrap: wrap; gap: .55rem; align-items: center;
     }
-    .modal-foot {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .6rem; letter-spacing: .08em;
-      color: var(--muted); margin-top: 1rem;
-    }
+    .modal-foot { font-size: .78rem; color: var(--hint); margin-top: 1rem; }
+
     @keyframes fadeUp {
-      from { opacity:0; transform:translateY(16px); }
+      from { opacity:0; transform:translateY(12px); }
       to   { opacity:1; transform:translateY(0); }
     }
-    .anim { animation: fadeUp .5s ease both; }
-    .d1{animation-delay:.05s} .d2{animation-delay:.15s}
-    .d3{animation-delay:.25s} .d4{animation-delay:.35s}
-    .d5{animation-delay:.45s}
+    .anim { animation: fadeUp .45s ease both; }
+    .d1{animation-delay:.05s} .d2{animation-delay:.12s}
+    .d3{animation-delay:.22s} .d4{animation-delay:.32s}
+    .d5{animation-delay:.42s}
+
     @media(max-width:520px){
-      .metrics-strip{grid-template-columns:1fr 1fr;}
-      .modal-top,.modal-body{padding-left:1.2rem;padding-right:1.2rem;}
-      footer{flex-direction:column;align-items:flex-start;}
+      .stats{ grid-template-columns: 1fr 1fr; }
+      .modal-top, .modal-body{ padding-left:1.3rem; padding-right:1.3rem; }
+      footer{ flex-direction:column; align-items:flex-start; }
     }
   </style>
 </head>
 <body>
 
-<div class="bg-lines" aria-hidden="true">
-  <div class="speed-line" style="top:12%;--dur:2.1s;--delay:0s;width:55%"></div>
-  <div class="speed-line" style="top:28%;--dur:3.2s;--delay:.6s;width:40%"></div>
-  <div class="speed-line" style="top:45%;--dur:2.7s;--delay:1.2s;width:65%"></div>
-  <div class="speed-line" style="top:61%;--dur:1.9s;--delay:.3s;width:35%"></div>
-  <div class="speed-line" style="top:76%;--dur:3.5s;--delay:.9s;width:50%"></div>
-  <div class="speed-line" style="top:88%;--dur:2.3s;--delay:1.6s;width:45%"></div>
-</div>
-<div class="bg-dots" aria-hidden="true"></div>
-
 <div class="page-wrap">
 
   <nav class="topbar anim d1">
-    <span class="topbar-id">RIDER_ID :: JD-2026-PH</span>
+    <span class="topbar-name">Jaed Delosa</span>
     <div class="topbar-status">
       <div class="sdot"></div>
-      LIVE · PALAWAN, PH
+      out riding somewhere in Palawan
     </div>
   </nav>
 
   <header class="hero anim d2">
-    <div class="chainring-wrap" aria-hidden="true">
-      <svg width="280" height="280" viewBox="0 0 260 260" fill="none">
-        <circle cx="130" cy="130" r="120" stroke="#39ff6a" stroke-width="6"/>
-        <circle cx="130" cy="130" r="100" stroke="#39ff6a" stroke-width="2"/>
-        <circle cx="130" cy="130" r="30"  stroke="#39ff6a" stroke-width="4"/>
-        <circle cx="130" cy="130" r="18"  stroke="#39ff6a" stroke-width="2"/>
-        <g stroke="#39ff6a" stroke-width="5" stroke-linecap="round">
-          <line x1="130" y1="4"   x2="130" y2="14"/>
-          <line x1="162" y1="8"   x2="158" y2="17"/>
-          <line x1="191" y1="20"  x2="184" y2="27"/>
-          <line x1="212" y1="40"  x2="203" y2="45"/>
-          <line x1="246" y1="58"  x2="238" y2="65"/>
-          <line x1="252" y1="90"  x2="242" y2="92"/>
-          <line x1="256" y1="130" x2="246" y2="130"/>
-          <line x1="252" y1="170" x2="242" y2="168"/>
-          <line x1="246" y1="202" x2="238" y2="195"/>
-          <line x1="212" y1="220" x2="203" y2="215"/>
-          <line x1="191" y1="240" x2="184" y2="233"/>
-          <line x1="162" y1="252" x2="158" y2="243"/>
-          <line x1="130" y1="256" x2="130" y2="246"/>
-          <line x1="98"  y1="252" x2="102" y2="243"/>
-          <line x1="69"  y1="240" x2="76"  y2="233"/>
-          <line x1="48"  y1="220" x2="57"  y2="215"/>
-          <line x1="14"  y1="202" x2="22"  y2="195"/>
-          <line x1="8"   y1="170" x2="18"  y2="168"/>
-          <line x1="4"   y1="130" x2="14"  y2="130"/>
-          <line x1="8"   y1="90"  x2="18"  y2="92"/>
-          <line x1="14"  y1="58"  x2="22"  y2="65"/>
-          <line x1="48"  y1="40"  x2="57"  y2="45"/>
-          <line x1="69"  y1="20"  x2="76"  y2="27"/>
-          <line x1="98"  y1="8"   x2="102" y2="17"/>
-        </g>
-        <g stroke="#39ff6a" stroke-width="1.5" opacity=".5">
-          <line x1="130" y1="100" x2="130" y2="50"/>
-          <line x1="130" y1="160" x2="130" y2="210"/>
-          <line x1="100" y1="130" x2="50"  y2="130"/>
-          <line x1="160" y1="130" x2="210" y2="130"/>
-          <line x1="109" y1="109" x2="74"  y2="74"/>
-          <line x1="151" y1="151" x2="186" y2="186"/>
-          <line x1="151" y1="109" x2="186" y2="74"/>
-          <line x1="109" y1="151" x2="74"  y2="186"/>
-        </g>
-      </svg>
+    <div class="hero-eyebrow">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      cyclist · freelancer · digital nomad
     </div>
-
-    <div class="hero-label">&gt; RIDER PROFILE LOADED_</div>
-    <div class="hero-name">JAED<br><span>DELOSA</span></div>
-    <div class="hero-sub">// CYCLIST &middot; FREELANCER &middot; DIGITAL_NOMAD &middot; PH</div>
+    <h1 class="hero-name">Jaed<br><em>Delosa</em></h1>
+    <p class="hero-tagline">Two wheels, open roads, and building things on the side — based in Palawan, Philippines.</p>
     <div class="action-row">
-      <button class="btn btn-primary" id="openModalBtn">&#9654; MESSAGE JAED</button>
-      <a href="https://jaeddelosa.tech/" target="_blank" rel="noopener" class="btn btn-outline">// WORK PORTFOLIO</a>
-      <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" rel="noopener" class="btn btn-ghost">$ GOTRADE</a>
+      <button class="btn btn-primary" id="openModalBtn">Say hello</button>
+      <a href="https://jaeddelosa.tech/" target="_blank" rel="noopener" class="btn btn-outline">See my work</a>
+      <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" rel="noopener" class="btn btn-ghost">GoTrade</a>
+      <a href="https://www.linkedin.com/in/jaeddelosa/" target="_blank" rel="noopener" class="btn-icon" aria-label="LinkedIn profile">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
     </div>
   </header>
 
-  <div class="metrics-strip anim d3">
-    <div class="metric-cell">
-      <div class="metric-label">Base</div>
-      <div class="metric-value">PALAWAN</div>
-      <div class="metric-unit">Location &middot; Philippines</div>
+  <div class="stats anim d3">
+    <div class="stat">
+      <div class="stat-label">Based in</div>
+      <div class="stat-value">Palawan</div>
+      <div class="stat-sub">Philippines</div>
     </div>
-    <div class="metric-cell">
-      <div class="metric-label">Mode</div>
-      <div class="metric-value">2&times;</div>
-      <div class="metric-unit">Wheels &middot; Always</div>
+    <div class="stat">
+      <div class="stat-label">Transport</div>
+      <div class="stat-value">2 wheels</div>
+      <div class="stat-sub">Always</div>
     </div>
-    <div class="metric-cell">
-      <div class="metric-label">Status</div>
-      <div class="metric-value">ON</div>
-      <div class="metric-unit">Active &middot; Riding</div>
+    <div class="stat">
+      <div class="stat-label">Status</div>
+      <div class="stat-value">Riding</div>
+      <div class="stat-sub">& working</div>
     </div>
-    <div class="metric-cell">
-      <div class="metric-label">Ideas</div>
-      <div class="metric-value">&infin;</div>
-      <div class="metric-unit">Queue &middot; Open</div>
+    <div class="stat">
+      <div class="stat-label">Ideas</div>
+      <div class="stat-value">∞</div>
+      <div class="stat-sub">Always cooking</div>
     </div>
   </div>
 
   <section class="section anim d4">
     <div class="section-header">
-      <span class="section-tag">// About</span>
-      <div class="section-line"></div>
+      <span class="section-label">About</span>
+      <div class="section-rule"></div>
     </div>
     <p class="bio-text">
-      Long-distance cyclist who logs miles and <strong>collects stories</strong> along the way. If you've got a <span class="hl">trail recommendation</span>, a half-baked idea, or something worth pitching — the channel is open. Also investing via <strong>GoTrade</strong>. Ask me about it.
+      I'm a long-distance cyclist and freelancer based in Palawan. Most days I'm out on the road picking up <strong>stories and saddle sores</strong> in equal measure. Between rides, I take on freelance work and <span class="hl">build things I find interesting</span>. I also invest through GoTrade — happy to chat about that if you're curious.
     </p>
   </section>
 
-  <div class="telemetry anim d4">
-    <div class="tele-row">
-      <span class="tele-key">open_to</span>
-      <span class="tele-val g">Ride invites &middot; Trail tips &middot; Collabs</span>
+  <div class="info-card anim d4">
+    <div class="info-row">
+      <span class="info-key">Open to</span>
+      <span class="info-val green">ride invites · trail tips · collabs</span>
     </div>
-    <div class="tele-row">
-      <span class="tele-key">currently_into</span>
-      <span class="tele-val">Long-distance rides &middot; Potential ventures</span>
+    <div class="info-row">
+      <span class="info-key">Currently into</span>
+      <span class="info-val">long-distance routes · side projects</span>
     </div>
-    <div class="tele-row">
-      <span class="tele-key">investing</span>
-      <span class="tele-val a">Active via GoTrade &rarr;</span>
+    <div class="info-row">
+      <span class="info-key">Investing</span>
+      <span class="info-val amber">active via GoTrade →</span>
     </div>
-    <div class="tele-row">
-      <span class="tele-key">response_time</span>
-      <span class="tele-val g">Fast &middot; Usually</span>
+    <div class="info-row">
+      <span class="info-key">Response time</span>
+      <span class="info-val green">pretty quick, unless I'm mid-ride</span>
     </div>
-    <div class="tele-row">
-      <span class="tele-key">portfolio</span>
-      <span class="tele-val">jaeddelosa.tech</span>
+    <div class="info-row">
+      <span class="info-key">Portfolio</span>
+      <span class="info-val">jaeddelosa.tech</span>
     </div>
   </div>
 
-  <div class="divider anim d5">-- msg --</div>
+  <div class="divider anim d5">· · ·</div>
 
   <section class="section anim d5">
     <div class="section-header">
-      <span class="section-tag">// Contact</span>
-      <div class="section-line"></div>
+      <span class="section-label">Get in touch</span>
+      <div class="section-rule"></div>
     </div>
-    <p class="bio-text" style="margin-bottom:1.4rem;">
-      Drop a message — whether you want to <strong>share a ride</strong>, suggest a route, or just say hello.
+    <p class="bio-text" style="margin-bottom:1.5rem;">
+      Got a <strong>route to share</strong>, a project idea, or just want to say hi? I read everything. Drop me a message.
     </p>
-    <button class="btn btn-primary" id="openModalBtn2">&#9654; OPEN COMMS</button>
+    <button class="btn btn-primary" id="openModalBtn2">Send a message</button>
   </section>
 
   <footer>
-    <span class="footer-id">&copy; 2026 &middot; JAED_DELOSA &middot; JD-2026-PH</span>
+    <span class="footer-copy">&copy; 2026 Jaed Delosa</span>
     <div class="footer-links">
       <a href="https://home.jaeddelosa.workers.dev/" target="_blank" rel="noopener" class="footer-link">Portfolio</a>
       <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" rel="noopener" class="footer-link">GoTrade</a>
+      <a href="https://www.linkedin.com/in/jaeddelosa/" target="_blank" rel="noopener" class="footer-linkedin" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
     </div>
   </footer>
 
 </div>
 
-<button id="reopenBtn">&#9654; MESSAGE JAED</button>
+<button id="reopenBtn">Say hello</button>
 
 <div class="modal-overlay hidden" id="shareModal">
   <div class="modal-card">
     <div class="modal-top">
       <div>
-        <div class="modal-mlabel">&gt; COMMS_OPEN &middot; CONTACT_SPACE</div>
-        <div class="modal-title">Message Jaed</div>
+        <div class="modal-eyebrow">drop a line</div>
+        <div class="modal-title">Hey Jaed —</div>
       </div>
-      <button class="close-btn" id="closeModalBtn" aria-label="Close">&#x2715;</button>
+      <button class="close-btn" id="closeModalBtn" aria-label="Close">✕</button>
     </div>
     <div class="modal-body">
       <p class="modal-note">
-        Ride invite, trail tip, weird idea, or anything else — it all routes here.
+        Whether it's a ride invite, a trail you think I'd love, a collab idea, or just a random hello — send it through. I'll get back to you.
       </p>
       <div class="tally-wrap">
         <div class="tally-spin" id="tallySpinner"></div>
@@ -520,26 +463,29 @@
         ></iframe>
       </div>
       <div class="modal-actions">
-        <a href="https://home.jaeddelosa.workers.dev/" target="_blank" class="btn btn-ghost" style="font-size:.65rem;padding:.6rem 1.1rem;">// Portfolio</a>
-        <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" class="btn btn-outline" style="font-size:.65rem;padding:.6rem 1.1rem;color:var(--amber);border-color:rgba(240,180,41,.3);">$ Invest via GoTrade</a>
+        <a href="https://home.jaeddelosa.workers.dev/" target="_blank" class="btn btn-outline" style="font-size:.8rem;padding:.55rem 1.1rem;">Portfolio</a>
+        <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" class="btn btn-ghost" style="font-size:.8rem;padding:.55rem 1.1rem;">Invest via GoTrade</a>
+        <a href="https://www.linkedin.com/in/jaeddelosa/" target="_blank" rel="noopener" class="btn-icon" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
       </div>
-      <p class="modal-foot">&gt; MSG GOES DIRECT TO JAED &middot; RIDE_SAFE &middot; INVEST_WISELY_</p>
+      <p class="modal-foot">Goes straight to me. I'll reply when I'm off the bike.</p>
     </div>
   </div>
 </div>
 
 <script>
 (function(){
-  var modal=document.getElementById('shareModal');
-  var reopen=document.getElementById('reopenBtn');
-  function open(){modal.classList.remove('hidden');document.body.style.overflow='hidden';reopen.style.display='none';}
-  function close(){modal.classList.add('hidden');document.body.style.overflow='';reopen.style.display='flex';}
-  document.getElementById('openModalBtn').addEventListener('click',open);
-  document.getElementById('openModalBtn2').addEventListener('click',open);
-  document.getElementById('closeModalBtn').addEventListener('click',close);
-  reopen.addEventListener('click',open);
-  modal.addEventListener('click',function(e){if(e.target===modal)close();});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!modal.classList.contains('hidden'))close();});
+  var modal = document.getElementById('shareModal');
+  var reopen = document.getElementById('reopenBtn');
+  function openModal(){ modal.classList.remove('hidden'); document.body.style.overflow='hidden'; reopen.style.display='none'; }
+  function closeModal(){ modal.classList.add('hidden'); document.body.style.overflow=''; reopen.style.display='flex'; }
+  document.getElementById('openModalBtn').addEventListener('click', openModal);
+  document.getElementById('openModalBtn2').addEventListener('click', openModal);
+  document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+  reopen.addEventListener('click', openModal);
+  modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !modal.classList.contains('hidden')) closeModal(); });
 })();
 </script>
 </body>
