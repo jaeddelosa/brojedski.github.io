@@ -45,6 +45,17 @@
       overflow-x: hidden;
     }
 
+    /* ── Cyclist background ── */
+    .cyclist-bg {
+      position: fixed;
+      bottom: 0; right: -2%;
+      width: min(520px, 62vw);
+      opacity: 0.045;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(0.3px);
+    }
+
     /* Subtle warm grain overlay */
     body::before {
       content: '';
@@ -380,6 +391,64 @@
 </head>
 <body>
 
+<svg class="cyclist-bg" viewBox="0 0 520 480" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- Rear wheel -->
+  <circle cx="148" cy="358" r="96" stroke="#ede8df" stroke-width="10"/>
+  <circle cx="148" cy="358" r="12" fill="#ede8df"/>
+  <!-- Rear wheel spokes -->
+  <line x1="148" y1="262" x2="148" y2="454" stroke="#ede8df" stroke-width="3.5"/>
+  <line x1="52" y1="358" x2="244" y2="358" stroke="#ede8df" stroke-width="3.5"/>
+  <line x1="80" y1="290" x2="216" y2="426" stroke="#ede8df" stroke-width="3.5"/>
+  <line x1="80" y1="426" x2="216" y2="290" stroke="#ede8df" stroke-width="3.5"/>
+  <!-- Front wheel -->
+  <circle cx="382" cy="358" r="96" stroke="#ede8df" stroke-width="10"/>
+  <circle cx="382" cy="358" r="12" fill="#ede8df"/>
+  <!-- Front wheel spokes -->
+  <line x1="382" y1="262" x2="382" y2="454" stroke="#ede8df" stroke-width="3.5"/>
+  <line x1="286" y1="358" x2="478" y2="358" stroke="#ede8df" stroke-width="3.5"/>
+  <line x1="314" y1="290" x2="450" y2="426" stroke="#ede8df" stroke-width="3.5"/>
+  <line x1="314" y1="426" x2="450" y2="290" stroke="#ede8df" stroke-width="3.5"/>
+  <!-- Frame: seat tube -->
+  <line x1="216" y1="270" x2="200" y2="358" stroke="#ede8df" stroke-width="11" stroke-linecap="round"/>
+  <!-- Frame: down tube -->
+  <line x1="216" y1="270" x2="310" y2="318" stroke="#ede8df" stroke-width="11" stroke-linecap="round"/>
+  <!-- Frame: top tube -->
+  <line x1="216" y1="270" x2="310" y2="260" stroke="#ede8df" stroke-width="9" stroke-linecap="round"/>
+  <!-- Frame: chain stay -->
+  <line x1="200" y1="358" x2="148" y2="358" stroke="#ede8df" stroke-width="9" stroke-linecap="round"/>
+  <!-- Frame: seat stay -->
+  <line x1="216" y1="270" x2="148" y2="358" stroke="#ede8df" stroke-width="8" stroke-linecap="round"/>
+  <!-- Fork -->
+  <line x1="310" y1="260" x2="382" y2="358" stroke="#ede8df" stroke-width="9" stroke-linecap="round"/>
+  <line x1="310" y1="318" x2="382" y2="358" stroke="#ede8df" stroke-width="9" stroke-linecap="round"/>
+  <!-- Head tube -->
+  <line x1="308" y1="254" x2="312" y2="324" stroke="#ede8df" stroke-width="12" stroke-linecap="round"/>
+  <!-- Handlebar stem -->
+  <line x1="310" y1="258" x2="338" y2="248" stroke="#ede8df" stroke-width="8" stroke-linecap="round"/>
+  <!-- Drops handlebar -->
+  <path d="M320 246 Q355 238 368 252 Q374 262 366 272" stroke="#ede8df" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <!-- Seat post -->
+  <line x1="214" y1="268" x2="218" y2="234" stroke="#ede8df" stroke-width="9" stroke-linecap="round"/>
+  <!-- Saddle -->
+  <path d="M200 232 Q218 224 236 230" stroke="#ede8df" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- Crank arm -->
+  <line x1="200" y1="358" x2="224" y2="378" stroke="#ede8df" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="200" cy="358" r="16" stroke="#ede8df" stroke-width="7"/>
+  <!-- Pedal -->
+  <line x1="218" y1="380" x2="232" y2="380" stroke="#ede8df" stroke-width="7" stroke-linecap="round"/>
+  <!-- Rider torso (tucked aero) -->
+  <path d="M218 234 Q228 200 278 196 Q308 194 326 210 Q344 224 356 246" stroke="#ede8df" stroke-width="13" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Rider arms to bars -->
+  <path d="M310 210 Q330 224 352 246" stroke="#ede8df" stroke-width="11" fill="none" stroke-linecap="round"/>
+  <!-- Rider legs -->
+  <path d="M218 234 Q210 290 200 358" stroke="#ede8df" stroke-width="11" fill="none" stroke-linecap="round"/>
+  <path d="M218 234 Q222 300 224 378" stroke="#ede8df" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- Helmet / head -->
+  <ellipse cx="278" cy="185" rx="28" ry="22" fill="#ede8df"/>
+  <!-- Helmet visor -->
+  <path d="M254 192 Q268 202 278 200" stroke="#17140f" stroke-width="3" fill="none"/>
+</svg>
+
 <div class="page-wrap">
 
   <nav class="topbar anim d1">
@@ -401,6 +470,7 @@
       <button class="btn btn-primary" id="openModalBtn">Say hello</button>
       <a href="https://jaeddelosa.tech/" target="_blank" rel="noopener" class="btn btn-outline">See my work</a>
       <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" rel="noopener" class="btn btn-ghost">GoTrade</a>
+      <a href="#" class="btn btn-outline" aria-label="My Store">My Store</a>
       <a href="https://www.linkedin.com/in/jaeddelosa/" target="_blank" rel="noopener" class="btn-icon" aria-label="LinkedIn profile">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
@@ -481,6 +551,7 @@
     <div class="footer-links">
       <a href="https://home.jaeddelosa.workers.dev/" target="_blank" rel="noopener" class="footer-link">Portfolio</a>
       <a href="https://www.heygotrade.com/referral/?code=013508" target="_blank" rel="noopener" class="footer-link">GoTrade</a>
+      <a href="#" class="footer-link">My Store</a>
       <a href="https://www.linkedin.com/in/jaeddelosa/" target="_blank" rel="noopener" class="footer-linkedin" aria-label="LinkedIn">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
@@ -539,5 +610,6 @@
   document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !modal.classList.contains('hidden')) closeModal(); });
 })();
 </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"e6e25820c0df4c37913797e573fb22a1","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
