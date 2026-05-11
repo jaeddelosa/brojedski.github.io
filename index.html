@@ -657,6 +657,86 @@
   </div>
 </div>
 
+<!-- ── Background music (replace music.mp3 with your actual file in GitHub Pages) ── -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="tatiana.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ── Music player widget ── -->
+<div id="musicPlayer">
+  <button id="musicBtn" aria-label="Toggle music">
+    <span id="musicIcon">
+      <!-- Play icon (shown when paused) -->
+      <svg id="iconPlay" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <!-- Bars icon (shown when playing) -->
+      <span id="iconBars" style="display:none; align-items:center; gap:2px; height:14px;">
+        <span class="bar" style="--d:0s"></span>
+        <span class="bar" style="--d:.15s"></span>
+        <span class="bar" style="--d:.3s"></span>
+        <span class="bar" style="--d:.1s"></span>
+      </span>
+    </span>
+    <span id="musicLabel">music</span>
+  </button>
+</div>
+
+<style>
+  #musicPlayer {
+    position: fixed;
+    bottom: 1.8rem;
+    left: 1.8rem;
+    z-index: 100;
+  }
+  #musicBtn {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    padding: .55rem 1rem;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all .2s ease;
+    backdrop-filter: blur(6px);
+  }
+  #musicBtn:hover {
+    color: var(--text);
+    border-color: var(--muted);
+    background: var(--surface-2);
+  }
+  #musicBtn.playing {
+    color: var(--green);
+    border-color: rgba(107,189,120,.35);
+    background: var(--green-pill);
+  }
+  .bar {
+    display: inline-block;
+    width: 3px;
+    border-radius: 2px;
+    background: currentColor;
+    animation: none;
+    height: 6px;
+  }
+  #musicBtn.playing .bar {
+    animation: eq var(--d, 0s) .6s ease-in-out infinite alternate;
+    animation-delay: var(--d);
+  }
+  @keyframes eq {
+    from { height: 3px; }
+    to   { height: 13px; }
+  }
+  /* second bar needs slightly different animation name to vary */
+  #musicBtn.playing .bar:nth-child(1) { animation-duration: .5s; }
+  #musicBtn.playing .bar:nth-child(2) { animation-duration: .7s; }
+  #musicBtn.playing .bar:nth-child(3) { animation-duration: .45s; }
+  #musicBtn.playing .bar:nth-child(4) { animation-duration: .65s; }
+</style>
+
 <script>
 (function(){
   var modal = document.getElementById('shareModal');
@@ -669,6 +749,72 @@
   reopen.addEventListener('click', openModal);
   modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !modal.classList.contains('hidden')) closeModal(); });
+
+  // ── Music player ──
+  var audio   = document.getElementById('bgMusic');
+  var btn     = document.getElementById('musicBtn');
+  var label   = document.getElementById('musicLabel');
+  var iconPlay = document.getElementById('iconPlay');
+  var iconBars = document.getElementById('iconBars');
+  var playing = false;
+
+  function setPlaying(state) {
+    playing = state;
+    if (playing) {
+      btn.classList.add('playing');
+      iconPlay.style.display = 'none';
+      iconBars.style.display = 'flex';
+      label.textContent = 'playing';
+    } else {
+      btn.classList.remove('playing');
+      iconPlay.style.display = 'block';
+      iconBars.style.display = 'none';
+      label.textContent = 'music';
+    }
+  }
+
+  function tryPlay() {
+    audio.volume = 0.45;
+    var p = audio.play();
+    if (p !== undefined) {
+      p.then(function(){ setPlaying(true); }).catch(function(){ setPlaying(false); });
+    }
+  }
+
+  // Attempt autoplay on first user interaction (browsers block autoplay without it)
+  var attempted = false;
+  function onFirstInteraction() {
+    if (attempted) return;
+    attempted = true;
+    tryPlay();
+    document.removeEventListener('click', onFirstInteraction);
+    document.removeEventListener('keydown', onFirstInteraction);
+    document.removeEventListener('scroll', onFirstInteraction);
+  }
+
+  // Try silent autoplay immediately; fall back to first-interaction
+  audio.volume = 0.45;
+  var autoAttempt = audio.play();
+  if (autoAttempt !== undefined) {
+    autoAttempt.then(function(){ attempted = true; setPlaying(true); }).catch(function(){
+      // Autoplay blocked — wait for first tap/scroll
+      document.addEventListener('click', onFirstInteraction);
+      document.addEventListener('keydown', onFirstInteraction);
+      document.addEventListener('scroll', onFirstInteraction);
+    });
+  }
+
+  // Manual toggle
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    attempted = true;
+    if (playing) {
+      audio.pause();
+      setPlaying(false);
+    } else {
+      tryPlay();
+    }
+  });
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"e6e25820c0df4c37913797e573fb22a1","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
