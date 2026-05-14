@@ -86,6 +86,24 @@
       padding: 1.6rem 0 1.4rem;
       border-bottom: 1px solid var(--border);
     }
+    .topbar-logo {
+      height: 32px; width: auto;
+      display: block;
+      /* Fallback placeholder shown when logo.png is missing */
+      min-width: 32px;
+    }
+    .topbar-logo-placeholder {
+      /* Shown only if logo.png hasn't been added yet */
+      height: 32px; width: 32px;
+      border-radius: 8px;
+      background: var(--surface-2);
+      border: 1px dashed var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; color: var(--hint); letter-spacing: .04em;
+      text-transform: uppercase; font-weight: 500;
+      flex-shrink: 0;
+      user-select: none;
+    }
     .topbar-name {
       font-size: .85rem; font-weight: 500; color: var(--text);
       letter-spacing: .01em;
@@ -513,7 +531,17 @@
 <div class="page-wrap">
 
   <nav class="topbar anim d1">
-    <span class="topbar-name">Good to see you here!</span>
+    <div style="display:flex;align-items:center;gap:.85rem;">
+      <!-- Replace logo.png with your actual logo file when deploying -->
+      <img
+        src="logo.png"
+        alt="Jaed Delosa logo"
+        class="topbar-logo"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+      >
+      <div class="topbar-logo-placeholder" style="display:none;" title="Add logo.png to replace this">logo</div>
+      <span class="topbar-name">Good to see you here!</span>
+    </div>
     <div class="topbar-status">
       <div class="sdot"></div>
       out riding somewhere in Palawan
