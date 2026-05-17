@@ -1,0 +1,4 @@
+Contact: mailto:security@jaeddelosa.com
+Encryption: https://jaeddelosa.com/pgp-key.txt
+Acknowledgments: https://jaeddelosa.com/hall-of-fame.html
+Policy: https://jaeddelosa.com/security-policy.html
