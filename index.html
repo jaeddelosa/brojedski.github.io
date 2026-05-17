@@ -546,39 +546,47 @@
         .stat-label { font-size: 0.875rem; color: var(--gray-medium); }
 
         .trust-section { margin-top: 80px; animation: fadeInUp 0.6s ease 0.6s backwards; }
-        .trust-label { text-align: center; color: var(--gray-medium); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 32px; }
+        .trust-label { text-align: center; color: var(--gray-medium); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 28px; }
 
-        .tech-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+        /* ─── CATEGORIZED TOOL STACK ─── */
+        .tech-categories { display: flex; flex-direction: column; gap: 14px; }
+
+        .tech-category-row {
+            display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+        }
+
+        .tech-cat-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--gray-medium);
+            min-width: 88px; text-align: right; flex-shrink: 0;
+            padding-right: 4px;
+            border-right: 2px solid rgba(225,29,72,0.2);
+        }
+
+        .tech-pills { display: flex; flex-wrap: wrap; gap: 8px; }
 
         .tech-badge {
-            padding: 12px 24px; background: rgba(225,29,72,0.05); border: 1px solid rgba(225,29,72,0.1);
-            border-radius: var(--border-radius-sm); color: var(--light); font-size: 0.95rem; font-weight: 500;
-            transition: var(--transition); display: flex; align-items: center; gap: 10px;
+            padding: 6px 14px; background: rgba(225,29,72,0.05); border: 1px solid rgba(225,29,72,0.1);
+            border-radius: 50px; color: var(--light); font-size: 0.82rem; font-weight: 500;
+            transition: var(--transition); display: flex; align-items: center; gap: 7px;
+            white-space: nowrap;
         }
 
-        .tech-badge:hover { background: rgba(225,29,72,0.15); border-color: var(--primary); transform: translateY(-2px); }
-        .tech-badge i { font-size: 1.2rem; color: var(--primary-light); }
+        .tech-badge:hover { background: rgba(225,29,72,0.13); border-color: var(--primary); transform: translateY(-2px); }
+        .tech-badge i { font-size: 0.95rem; color: var(--primary-light); }
 
         .tech-badge.tech-badge--ai {
-            background: linear-gradient(135deg, rgba(34,211,238,0.1), rgba(225,29,72,0.06));
-            border-color: rgba(34,211,238,0.3);
-            position: relative;
+            background: linear-gradient(135deg, rgba(34,211,238,0.08), rgba(225,29,72,0.04));
+            border-color: rgba(34,211,238,0.25);
         }
         .tech-badge.tech-badge--ai i { color: #22d3ee; }
-        .tech-badge.tech-badge--ai span { color: #22d3ee; font-weight: 700; }
-        .tech-badge.tech-badge--ai::before {
-            content: '✦ NEW';
-            position: absolute;
-            top: -9px; right: 6px;
-            font-size: 0.52rem; font-weight: 800; letter-spacing: 1px;
-            background: linear-gradient(135deg, #22d3ee, var(--primary));
-            color: white; padding: 2px 7px; border-radius: 20px;
-        }
+        .tech-badge.tech-badge--ai span { color: #22d3ee; font-weight: 600; }
         .tech-badge.tech-badge--ai:hover {
-            background: linear-gradient(135deg, rgba(34,211,238,0.2), rgba(225,29,72,0.12));
+            background: linear-gradient(135deg, rgba(34,211,238,0.18), rgba(225,29,72,0.08));
             border-color: #22d3ee;
-            box-shadow: 0 4px 20px rgba(34,211,238,0.2);
-            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(34,211,238,0.15);
+            transform: translateY(-2px);
         }
 
         .process-showcase { margin-top: 100px; animation: fadeInUp 0.8s ease 0.8s backwards; }
@@ -1648,6 +1656,11 @@
             .all-industries-grid{grid-template-columns:1fr;}
             .ai-nav{gap:8px;}
             .ai-nav-btn{padding:8px 16px;font-size:0.8rem;}
+            .tech-cat-label{min-width:64px;font-size:0.6rem;}
+        }
+        @media(max-width:600px){
+            .tech-category-row{flex-direction:column;align-items:flex-start;}
+            .tech-cat-label{text-align:left;border-right:none;border-bottom:2px solid rgba(225,29,72,0.2);padding-right:0;padding-bottom:4px;min-width:unset;}
         }
     </style>
 </head>
@@ -1771,40 +1784,71 @@ From a web presence that gets found — whether people are searching on Google o
 
         <div class="trust-section">
             <p class="trust-label">The Tools I Master — powering automation, websites, and growth.</p>
-            <div class="tech-grid">
-                <div class="tech-badge"><i class="fas fa-cog"></i><span>n8n</span></div>
-                <div class="tech-badge"><i class="fab fa-docker"></i><span>Docker</span></div>
-                <div class="tech-badge"><i class="fas fa-bolt"></i><span>Make (Integromat)</span></div>
-                <div class="tech-badge"><i class="fas fa-brain"></i><span>Ollama</span></div>
-                <div class="tech-badge"><i class="fas fa-robot"></i><span>LangChain</span></div>
-                <div class="tech-badge"><i class="fas fa-network-wired"></i><span>API Orchestration</span></div>
-                <div class="tech-badge"><i class="fas fa-search"></i><span>Google Search Console</span></div>
-                <div class="tech-badge"><i class="fas fa-chart-line"></i><span>SEMrush</span></div>
-                <div class="tech-badge"><i class="fas fa-link"></i><span>Ahrefs</span></div>
-                <div class="tech-badge"><i class="fas fa-file-alt"></i><span>Surfer SEO</span></div>
-                <div class="tech-badge"><i class="fab fa-wordpress"></i><span>WordPress</span></div>
-                <div class="tech-badge"><i class="fab fa-react"></i><span>React</span></div>
-                <div class="tech-badge"><i class="fab fa-js"></i><span>JavaScript</span></div>
-                <div class="tech-badge"><i class="fas fa-database"></i><span>PostgreSQL</span></div>
-                <div class="tech-badge"><i class="fab fa-hubspot"></i><span>HubSpot</span></div>
-                <div class="tech-badge"><i class="fas fa-store"></i><span>Shopify</span></div>
-                <div class="tech-badge"><i class="fab fa-figma"></i><span>Figma</span></div>
-                <div class="tech-badge"><i class="fas fa-table"></i><span>Notion</span></div>
-                <div class="tech-badge tech-badge--ai"><i class="fas fa-layer-group"></i><span>RAG Pipelines</span></div>
-                <div class="tech-badge"><i class="fas fa-code"></i><span>JSON</span></div>
-                <div class="tech-badge"><i class="fab fa-python"></i><span>Python</span></div>
-                <div class="tech-badge tech-badge--ai"><i class="fas fa-terminal"></i><span>Claude Code</span></div>
-                <div class="tech-badge tech-badge--ai"><i class="fas fa-plug"></i><span>MCP Servers</span></div>
-                <div class="tech-badge"><i class="fab fa-html5"></i><span>HTML5</span></div>
-                <div class="tech-badge"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
-                <div class="tech-badge"><i class="fab fa-sass"></i><span>Sass / SCSS</span></div>
-                <div class="tech-badge"><i class="fab fa-bootstrap"></i><span>Bootstrap</span></div>
-                <div class="tech-badge"><i class="fas fa-wind"></i><span>Tailwind CSS</span></div>
-                <div class="tech-badge"><i class="fab fa-vuejs"></i><span>Vue.js</span></div>
-                <div class="tech-badge"><i class="fas fa-cube"></i><span>Vite</span></div>
-                <div class="tech-badge"><i class="fab fa-npm"></i><span>npm / yarn</span></div>
-                <div class="tech-badge"><i class="fab fa-git-alt"></i><span>Git</span></div>
-                <div class="tech-badge"><i class="fas fa-mobile-alt"></i><span>Responsive Design</span></div>
+            <div class="tech-categories">
+
+                <div class="tech-category-row">
+                    <span class="tech-cat-label">Automation</span>
+                    <div class="tech-pills">
+                        <div class="tech-badge"><i class="fas fa-cog"></i><span>n8n</span></div>
+                        <div class="tech-badge"><i class="fab fa-docker"></i><span>Docker</span></div>
+                        <div class="tech-badge"><i class="fas fa-bolt"></i><span>Make</span></div>
+                        <div class="tech-badge"><i class="fas fa-network-wired"></i><span>API Orchestration</span></div>
+                    </div>
+                </div>
+
+                <div class="tech-category-row">
+                    <span class="tech-cat-label">AI / LLM</span>
+                    <div class="tech-pills">
+                        <div class="tech-badge tech-badge--ai"><i class="fas fa-terminal"></i><span>Claude Code</span></div>
+                        <div class="tech-badge tech-badge--ai"><i class="fas fa-plug"></i><span>MCP Servers</span></div>
+                        <div class="tech-badge tech-badge--ai"><i class="fas fa-layer-group"></i><span>RAG Pipelines</span></div>
+                        <div class="tech-badge"><i class="fas fa-brain"></i><span>Ollama</span></div>
+                        <div class="tech-badge"><i class="fas fa-robot"></i><span>LangChain</span></div>
+                    </div>
+                </div>
+
+                <div class="tech-category-row">
+                    <span class="tech-cat-label">SEO / AEO</span>
+                    <div class="tech-pills">
+                        <div class="tech-badge"><i class="fas fa-search"></i><span>Google Search Console</span></div>
+                        <div class="tech-badge"><i class="fas fa-chart-line"></i><span>SEMrush</span></div>
+                        <div class="tech-badge"><i class="fas fa-link"></i><span>Ahrefs</span></div>
+                        <div class="tech-badge"><i class="fas fa-file-alt"></i><span>Surfer SEO</span></div>
+                    </div>
+                </div>
+
+                <div class="tech-category-row">
+                    <span class="tech-cat-label">Dev / Code</span>
+                    <div class="tech-pills">
+                        <div class="tech-badge"><i class="fab fa-react"></i><span>React</span></div>
+                        <div class="tech-badge"><i class="fab fa-vuejs"></i><span>Vue.js</span></div>
+                        <div class="tech-badge"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                        <div class="tech-badge"><i class="fab fa-python"></i><span>Python</span></div>
+                        <div class="tech-badge"><i class="fas fa-database"></i><span>PostgreSQL</span></div>
+                        <div class="tech-badge"><i class="fab fa-git-alt"></i><span>Git</span></div>
+                    </div>
+                </div>
+
+                <div class="tech-category-row">
+                    <span class="tech-cat-label">Design / Web</span>
+                    <div class="tech-pills">
+                        <div class="tech-badge"><i class="fab fa-wordpress"></i><span>WordPress</span></div>
+                        <div class="tech-badge"><i class="fas fa-store"></i><span>Shopify</span></div>
+                        <div class="tech-badge"><i class="fab fa-figma"></i><span>Figma</span></div>
+                        <div class="tech-badge"><i class="fas fa-wind"></i><span>Tailwind CSS</span></div>
+                        <div class="tech-badge"><i class="fab fa-sass"></i><span>Sass</span></div>
+                        <div class="tech-badge"><i class="fas fa-mobile-alt"></i><span>Responsive</span></div>
+                    </div>
+                </div>
+
+                <div class="tech-category-row">
+                    <span class="tech-cat-label">CRM / Tools</span>
+                    <div class="tech-pills">
+                        <div class="tech-badge"><i class="fab fa-hubspot"></i><span>HubSpot</span></div>
+                        <div class="tech-badge"><i class="fas fa-table"></i><span>Notion</span></div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
