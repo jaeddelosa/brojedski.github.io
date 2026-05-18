@@ -1,0 +1,5 @@
+# Jaed Delosa - Websites, SEO/AEO & AI Integration
+
+> Build smarter systems, not just websites. Workflow automation, AI integrations, API orchestration, and SEO/AEO strategy built for businesses that need results—not retainers.
+
+Key topics: automation consultant, workflow automation, n8n, docker, AI integration
