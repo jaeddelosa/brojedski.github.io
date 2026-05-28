@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Iran War Watch — Real‑time Intelligence Dashboard</title>
+  <meta name="description" content="Iran War Watch is a real-time intelligence dashboard tracking the Iran conflict, Strait of Hormuz tensions, and the global oil crisis — from 7 global news sources with live data panels.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: #0A0A0C;
+      color: #EAEAEF;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 10% 10%, rgba(224, 108, 108, 0.03) 0%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .navbar {
+      padding: 1.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #FFFFFF 0%, #E06C6C 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #C0C0CC;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #E06C6C;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(105deg, #C44C4C 0%, #8B2A2A 100%);
+      color: white;
+      font-weight: 600;
+      padding: 0.85rem 2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      font-size: 1rem;
+      box-shadow: 0 8px 20px rgba(200, 60, 60, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(105deg, #D96060 0%, #A03A3A 100%);
+      box-shadow: 0 15px 25px -10px rgba(200, 60, 60, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(224, 108, 108, 0.5);
+      color: #E0C0C0;
+      font-weight: 500;
+      padding: 0.7rem 1.6rem;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: #E06C6C;
+      color: #E06C6C;
+      background: rgba(224, 108, 108, 0.05);
+    }
+
+    .hero {
+      padding: 5rem 0 3rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(224, 108, 108, 0.12);
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #E06C6C;
+      width: fit-content;
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #FFFFFF 0%, #E6A0A0 80%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      max-width: 850px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #B0B0C0;
+      max-width: 650px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      color: #8A8A9A;
+      max-width: 720px;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .card-dark {
+      background: rgba(20, 20, 28, 0.7);
+      backdrop-filter: blur(2px);
+      border-radius: 28px;
+      padding: 2rem;
+      border: 1px solid rgba(224, 108, 108, 0.15);
+      transition: all 0.2s;
+    }
+
+    .card-dark:hover {
+      border-color: rgba(224, 108, 108, 0.35);
+      background: rgba(25, 25, 35, 0.8);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: rgba(18, 18, 24, 0.6);
+      border-radius: 24px;
+      padding: 1.8rem;
+      border: 1px solid #2A2A32;
+      transition: 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(224, 108, 108, 0.3);
+    }
+
+    .feature-card h3 {
+      margin: 1rem 0 0.5rem;
+      font-size: 1.4rem;
+    }
+
+    .feature-icon {
+      font-size: 2.3rem;
+    }
+
+    .warning-box {
+      background: rgba(224, 108, 108, 0.05);
+      border-left: 4px solid #E06C6C;
+      padding: 1.5rem;
+      border-radius: 16px;
+      margin: 1rem 0;
+    }
+
+    .cta-section {
+      text-align: center;
+      background: linear-gradient(145deg, #1A1015 0%, #0E080A 100%);
+      border-radius: 48px;
+      padding: 3.5rem 2rem;
+      margin: 3rem 0 2rem;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      color: #6C6C7A;
+      font-size: 0.85rem;
+    }
+
+    .disclaimer {
+      background: rgba(0, 0, 0, 0.3);
+      border-left: 3px solid #E06C6C;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      color: #9A9AAC;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 850px) {
+      .container { padding: 0 1.5rem; }
+      .hero h1 { font-size: 2.5rem; }
+      .two-col { grid-template-columns: 1fr; gap: 2rem; }
+      .navbar { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 550px) {
+      .hero h1 { font-size: 2rem; }
+      .section-title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <nav class="navbar">
+    <div class="logo">Iran War Watch</div>
+    <div class="nav-links">
+      <a href="#problem">The Crisis</a>
+      <a href="#features">Monitored Regions</a>
+      <a href="#oil-tracker">Oil Tracker</a>
+      <a href="#impact-dashboard">Impact Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-badge">⚡ REAL‑TIME INTELLIGENCE DASHBOARD</div>
+    <h1>Iran conflict, Strait of Hormuz & the global oil crisis — tracked live.</h1>
+    <p>Aggregated in real time from 7 international news organizations. Military developments, oil price shocks, naval movements, and the cascading global consequences — all in one focused feed.</p>
+    <div class="hero-actions">
+      <a href="https://iran-war-watch.jaeddelosa.com/" target="_blank" rel="noopener noreferrer" class="btn-primary">Launch Dashboard →</a>
+      <a href="#contact-cta" class="btn-outline">Request a More Robust Version</a>
+    </div>
+  </div>
+
+  <!-- The Crisis / Problem -->
+  <section id="problem">
+    <div class="two-col">
+      <div>
+        <span class="hero-badge" style="margin-bottom: 1rem; display: inline-block;">Why This Dashboard Exists</span>
+        <h2 class="section-title" style="margin-bottom: 1rem;">The most consequential geopolitical situation of the decade.</h2>
+        <p style="color:#B8B8CC; margin-bottom: 1rem;">The Iran conflict and its knock-on effects on global oil supply represent one of the most consequential geopolitical situations of the decade. News is fragmented, scattered across dozens of sources, and buried in noise. Iran War Watch exists to consolidate signal from noise — delivering a focused, real‑time intelligence feed.</p>
+        <p style="color:#B8B8CC;">From direct military confrontations and proxy warfare to nuclear escalation and the ever‑present risk of a full regional war drawing in Israel, the US, and Gulf states — the dashboard tracks every development across Reuters, BBC, AP, Al Jazeera, and more.</p>
+      </div>
+      <div class="card-dark">
+        <div style="font-size: 2rem; margin-bottom: 1rem;">🌍</div>
+        <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">What Iran War Watch solves</h3>
+        <ul style="list-style: none; margin-top: 1rem;">
+          <li style="margin-bottom: 0.8rem;">✓ ❌ Fragmented news → ✅ Single, real‑time intelligence feed</li>
+          <li style="margin-bottom: 0.8rem;">✓ ❌ Delayed information → ✅ 5‑minute auto‑refresh</li>
+          <li style="margin-bottom: 0.8rem;">✓ ❌ Missed connections → ✅ Tracks oil crisis & military fallout together</li>
+          <li style="margin-bottom: 0.8rem;">✓ ❌ No live data → ✅ Threshold‑triggered alerts & live panels</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Statistics / Threat Levels -->
+  <div style="margin: -2rem 0 2rem;">
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;">
+      <div class="card-dark" style="flex: 1; text-align: center;"><div style="font-size: 2rem;">⚠️</div><div style="font-weight: 700;">Hormuz Threat Level</div><div style="color:#E06C6C;">CRITICAL</div></div>
+      <div class="card-dark" style="flex: 1; text-align: center;"><div style="font-size: 2rem;">📰</div><div style="font-weight: 700;">Live News Sources</div><div>7 Global Outlets</div></div>
+      <div class="card-dark" style="flex: 1; text-align: center;"><div style="font-size: 2rem;">🔄</div><div style="font-weight: 700;">Auto‑Refresh</div><div>5 minutes</div></div>
+      <div class="card-dark" style="flex: 1; text-align: center;"><div style="font-size: 2rem;">🔑</div><div style="font-weight: 700;">Crisis Keywords Tracked</div><div>38</div></div>
+    </div>
+  </div>
+
+  <!-- Monitored Regions / Features -->
+  <section id="features">
+    <div style="text-align: center;">
+      <span class="hero-badge" style="margin-bottom: 1rem;">Coverage Area</span>
+      <h2 class="section-title">Six critical zones. One unified dashboard.</h2>
+      <p class="section-sub">Events in these regions are prioritised and surfaced at the top of the feed.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🇮🇷</div><h3>Iran (CRITICAL)</h3><p>Nuclear programme, IRGC operations, proxy network command, US sanctions regime, internal political stability.</p></div>
+      <div class="feature-card"><div class="feature-icon">🌊</div><h3>Strait of Hormuz (CRITICAL)</h3><p>Primary global oil chokepoint. Iranian naval activity, tanker seizures, US carrier group positioning.</p></div>
+      <div class="feature-card"><div class="feature-icon">🇮🇱</div><h3>Israel (CRITICAL)</h3><p>Direct Iran–Israel exchange, strike operations, Hezbollah northern front, Gaza theatre spillover.</p></div>
+      <div class="feature-card"><div class="feature-icon">🇸🇦</div><h3>Saudi Arabia (ELEVATED)</h3><p>OPEC leadership, Aramco infrastructure vulnerability, Iran-KSA proxy rivalry across Yemen and Iraq.</p></div>
+      <div class="feature-card"><div class="feature-icon">🇮🇶</div><h3>Iraq (ELEVATED)</h3><p>Iranian-backed militia activity, US base targeting, key production zone for Basra crude exports.</p></div>
+      <div class="feature-card"><div class="feature-icon">🇺🇸</div><h3>United States (WATCH)</h3><p>5th Fleet Gulf deployment, sanctions enforcement, diplomatic back‑channel negotiations, Congressional posture.</p></div>
+    </div>
+  </section>
+
+  <!-- Oil Crisis Tracker -->
+  <section id="oil-tracker">
+    <div class="two-col">
+      <div>
+        <span class="hero-badge" style="margin-bottom: 0.8rem;">The Oil Crisis Tracker</span>
+        <h2 class="section-title" style="margin-bottom: 1rem;">20% of global oil transits through the Strait of Hormuz.</h2>
+        <p style="margin-bottom: 1rem;">Iran controls the eastern shore of the Strait of Hormuz — through which 20% of all global oil transits daily. Any closure, even partial, triggers immediate supply shocks across Asian, European, and US markets.</p>
+        <p>The dashboard's Oil & Energy filter surfaces every article touching crude prices, OPEC decisions, tanker movements, pipeline security, and the macroeconomic fallout of supply disruptions — all sourced live from OilPrice.com, Reuters, and the financial desk feeds of major newsrooms.</p>
+        <div class="warning-box" style="margin-top: 1rem;">
+          <strong>📊 Live price context:</strong> Brent Crude, WTI, Dubai crude, and European natural gas (TTF) are tracked alongside news cards — so you see price context alongside the geopolitical reporting that's moving markets.
+        </div>
+      </div>
+      <div class="card-dark">
+        <div style="font-weight: 600; font-size: 1.3rem; margin-bottom: 0.75rem;">💰 Indicative reference prices</div>
+        <div style="margin-top: 1rem;">
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;"><span>Brent Crude ICE Futures</span><span style="color:#E06C6C;">$91.40 ↑ +2.34%</span></div>
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;"><span>WTI Crude NYMEX</span><span style="color:#E06C6C;">$87.15 ↑ +1.97%</span></div>
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;"><span>Dubai Crude Spot</span><span style="color:#E06C6C;">$89.75 ↑ +2.05%</span></div>
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;"><span>Nat. Gas TTF (European)</span><span style="color:#E06C6C;">€38.20 ↑ +4.10%</span></div>
+        </div>
+        <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <span style="background: #1E2A28; padding: 0.2rem 0.8rem; border-radius: 30px;">21M barrels/day flow through Hormuz</span>
+          <span style="background: #1E2A28; padding: 0.2rem 0.8rem; border-radius: 30px;">190+ countries exposed to oil price shock</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Systemic Impact Dashboard -->
+  <section id="impact-dashboard">
+    <div style="background: linear-gradient(135deg, #1A0A0A 0%, #0E0505 100%); border-radius: 32px; padding: 2.5rem; margin: 1rem 0; border: 1px solid rgba(224, 108, 108, 0.3);">
+      <div class="hero-badge" style="margin-bottom: 1rem;">🔬 BEYOND THE NEWS FEED</div>
+      <h2 style="font-size: 1.9rem; font-weight: 700; margin-bottom: 0.75rem;">The Systemic Impact Dashboard</h2>
+      <p style="font-size: 1rem; color: #CCCCE0; margin-bottom: 1.5rem;">Seven interconnected domains tracking the real-world consequences of the Iran war — from tanker movements to uranium enrichment.</p>
+      <div class="features-grid" style="margin-top: 0;">
+        <div class="feature-card"><div class="feature-icon">🛢️</div><h3>Strait of Hormuz</h3><p>MarineTraffic AIS for vessel positions, US 5th Fleet movements, tanker seizures.</p></div>
+        <div class="feature-card"><div class="feature-icon">📊</div><h3>Oil Price Charts</h3><p>TradingView‑powered live oil price tracking — Brent, WTI, Dubai, TTF.</p></div>
+        <div class="feature-card"><div class="feature-icon">☢️</div><h3>Nuclear Escalation</h3><p>IAEA uranium enrichment data, facility status, breakout timeline estimates.</p></div>
+        <div class="feature-card"><div class="feature-icon">🏦</div><h3>Sanctions & Evasion</h3><p>OFAC designations, shadow fleet tracking, Iranian oil export routes.</p></div>
+        <div class="feature-card"><div class="feature-icon">💻</div><h3>Cyber Warfare</h3><p>Check Point ThreatCloud map — real‑time attack visualization.</p></div>
+        <div class="feature-card"><div class="feature-icon">🚨</div><h3>Threshold Alerts</h3><p>Colour‑coded CRITICAL / WARNING / INFO — escalations the moment they cross a threshold.</p></div>
+      </div>
+      <div class="warning-box" style="margin-top: 1.5rem;">
+        <strong>⚡ Live alert sample — threshold‑triggered, timestamped UTC:</strong><br>
+        • CRITICAL — IAF strike confirmed — Isfahan missile facility. S‑300 radar neutralised.<br>
+        • WARNING — Brent crude flash spike $92.10 — Hormuz closure threat pricing in.<br>
+        • INFO — Qatar back‑channel confirmed — indirect US–Iran contact active.
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Spotlight -->
+  <div style="margin: 1rem 0 2rem;">
+    <div style="background: rgba(224, 108, 108, 0.03); border-radius: 32px; padding: 2rem; border: 1px solid rgba(224, 108, 108, 0.1);">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+        <div>
+          <div class="hero-badge" style="margin-bottom: 0.5rem;">Featured in Jaed Delosa portfolio</div>
+          <h3 style="font-size: 1.5rem; font-weight: 600;">Iran War Watch — real‑time intelligence</h3>
+          <p style="color:#B0B0C0; margin-top: 0.4rem;">A dedicated dashboard tracking the Iran conflict, Strait of Hormuz tensions, and the global oil crisis — from 7 global news sources with live data panels.</p>
+        </div>
+        <a href="https://iran-war-watch.jaeddelosa.com/" target="_blank" rel="noopener" class="btn-outline" style="white-space: nowrap;">Launch dashboard →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disclaimer -->
+  <div class="disclaimer">
+    <strong>⚠️ Important Disclaimer:</strong> Iran War Watch aggregates publicly available news and open‑source intelligence for informational purposes only. All data is sourced from third‑party providers. Live price data is indicative; for live trading consult Bloomberg, Reuters, or CME Group. This dashboard does not provide investment advice, legal counsel, or operational intelligence.
+  </div>
+
+  <!-- Call to Action -->
+  <div id="contact-cta">
+    <div class="cta-section">
+      <h2 style="font-size: 2rem; margin-bottom: 1rem;">Need a custom intelligence dashboard?</h2>
+      <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem auto; color: #CCDDE8;">Iran War Watch is one example. Whether you need real‑time news aggregation, geopolitical risk monitoring, or custom data visualization — let's build a tailored solution for your organization.</p>
+      <a href="https://jaeddelosa.tech/#contact" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background: #C44C4C; box-shadow: 0 8px 20px rgba(200,60,60,0.3);">Discuss your project →</a>
+      <p style="margin-top: 1.5rem; font-size: 0.85rem;">📩 Free consultation · Custom dashboards · API integrations</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Iran War Watch — real‑time intelligence dashboard. Part of Jaed Delosa's virtual solutions portfolio.</p>
+    <p style="margin-top: 0.8rem;">© 2025 Iran War Watch | <a href="https://jaeddelosa.tech/" target="_blank" style="color: #E06C6C; text-decoration: none;">jaeddelosa.tech</a></p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === "#" || targetId === "") return;
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
