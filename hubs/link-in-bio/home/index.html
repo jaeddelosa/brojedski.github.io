@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Jaed Delosa · link in bio</title>
+  <style>
+    /* ---------- dark, spacious, readable ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0d12;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      padding: 2.5rem 1.5rem;
+      color: #eef2f5;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #12161c;
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.6);
+      padding: 2.5rem 2.2rem;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 620;
+      letter-spacing: -0.02em;
+      color: #f5f9ff;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    .intro {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #b7cfdf;
+      margin-bottom: 2rem;
+      line-height: 1.4;
+    }
+
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.8rem 0 1.4rem;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: #1a2028;
+      padding: 1rem 1.4rem;
+      border-radius: 80px;
+      text-decoration: none;
+      color: #eef2f8;
+      font-weight: 500;
+      transition: background 0.15s ease;
+      border: 1px solid #2c343e;
+    }
+
+    .link-item:hover {
+      background: #262e38;
+      border-color: #5f7485;
+    }
+
+    .link-icon {
+      font-size: 1.8rem;
+      width: 2.5rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* SVG icon sizing - specifically for LinkedIn */
+    .linkedin-svg {
+      width: 26px;
+      height: 26px;
+      display: block;
+    }
+
+    .link-text {
+      flex: 1;
+      font-size: 1.08rem;
+      font-weight: 500;
+    }
+
+    .link-arrow {
+      color: #8ba3b8;
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    .freelance-note {
+      background: #182028;
+      padding: 1.2rem 1.4rem;
+      border-radius: 1.5rem;
+      margin: 1.5rem 0 1.8rem;
+      font-size: 1rem;
+      border-left: 5px solid #d6a161;
+      color: #dee7ef;
+      line-height: 1.5;
+    }
+
+    .message-area {
+      text-align: center;
+      margin: 1.8rem 0 1rem;
+    }
+
+    .message-area p {
+      font-size: 1rem;
+      color: #9eb6ca;
+      margin-bottom: 0.9rem;
+    }
+
+    .popup-btn {
+      background: #2c414b;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 0.9rem 2rem;
+      font-size: 1rem;
+      border-radius: 60px;
+      cursor: pointer;
+      border: 1px solid #4f6e7c;
+      transition: background 0.1s;
+    }
+
+    .popup-btn:hover {
+      background: #3e5f6e;
+    }
+
+    footer {
+      margin-top: 2.2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #7b93a8;
+      border-top: 1px solid #242c34;
+      padding-top: 1.5rem;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #151d24;
+      width: 92%;
+      max-width: 620px;
+      border-radius: 1.8rem;
+      overflow: hidden;
+      box-shadow: 0 30px 45px -12px black;
+      border: 1px solid #2e3a44;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 1.5rem;
+      background: #0e151c;
+      border-bottom: 1px solid #2a3640;
+    }
+
+    .modal-header span {
+      font-weight: 500;
+      font-size: 1.2rem;
+      color: #dfecf3;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #a6bfd4;
+      line-height: 1;
+      padding: 0 0.3rem;
+    }
+
+    .close-modal:hover {
+      color: white;
+    }
+
+    iframe {
+      width: 100%;
+      height: 540px;
+      border: none;
+      display: block;
+      background: white;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1.2rem;
+      }
+      .container {
+        padding: 1.6rem 1.2rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .intro {
+        font-size: 0.98rem;
+      }
+      .link-item {
+        padding: 0.85rem 1.2rem;
+      }
+      .link-icon {
+        font-size: 1.5rem;
+        width: 2rem;
+      }
+      .linkedin-svg {
+        width: 22px;
+        height: 22px;
+      }
+      .link-text {
+        font-size: 0.95rem;
+      }
+      .freelance-note {
+        font-size: 0.92rem;
+        padding: 1rem;
+      }
+      .popup-btn {
+        padding: 0.75rem 1.6rem;
+        font-size: 0.9rem;
+      }
+      iframe {
+        height: 480px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Hi, I am Jaed!</h1>
+
+  <div class="intro">
+    by the way, if you are here for a particular reason, please see if it match the options below:
+  </div>
+
+  <div class="link-list">
+    <!-- email -->
+    <a href="mailto:info@jaeddelosa.com" class="link-item" target="_blank" rel="noopener">
+      <span class="link-icon">📧</span>
+      <span class="link-text">info@jaeddelosa.com</span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- work portfolio -->
+    <a href="https://jaeddelosa.com" class="link-item" target="_blank" rel="noopener">
+      <span class="link-icon">💼</span>
+      <span class="link-text">work portfolio (freelance & projects)</span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- digital store -->
+    <a href="https://mystore.jaeddelosa.com/" class="link-item" target="_blank" rel="noopener">
+      <span class="link-icon">🛍️</span>
+      <span class="link-text">my store – digital products</span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- Medium -->
+    <a href="https://jaeddelosa.medium.com" class="link-item" target="_blank" rel="noopener">
+      <span class="link-icon">📝</span>
+      <span class="link-text">Medium – articles & writing</span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- personal blog -->
+    <a href="https://blog.jaeddelosa.com" class="link-item" target="_blank" rel="noopener">
+      <span class="link-icon">✍️</span>
+      <span class="link-text">personal blog – blog.jaeddelosa.com</span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- LinkedIn with proper SVG icon -->
+    <a href="https://www.linkedin.com/in/jaeddelosa/" class="link-item" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg class="linkedin-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C0.792 0 0 0.774 0 1.729v20.542C0 23.227 0.792 24 1.771 24h20.451c0.979 0 1.771-0.773 1.771-1.729V1.729C24 0.774 23.205 0 22.225 0z"/>
+        </svg>
+      </span>
+      <span class="link-text">LinkedIn – professional network</span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- WhatsApp -->
+    <a href="https://api.whatsapp.com/send/?phone=639810848049&text&type=phone_number&app_absent=0" class="link-item" target="_blank" rel="noopener">
+      <span class="link-icon">💬</span>
+      <span class="link-text">WhatsApp chat</span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- secure conversation (Signal) -->
+    <a href="https://jaedd.talk4fun.net/" class="link-item" target="_blank" rel="noopener">
+      <span class="link-icon">🔒</span>
+      <span class="link-text">secure conversation (Signal app)</span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- travel discounts -->
+    <a href="https://www.klook.com/invite/XLMJBT?c=PHP" class="link-item" target="_blank" rel="noopener">
+      <span class="link-icon">✈️</span>
+      <span class="link-text">travel discounts – hotels & vacations</span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="freelance-note">
+    and if you are a freelancer who just come here for a business partnership or any related reasons,
+    just reach out to me through my email or WhatsApp listed above.
+  </div>
+
+  <div class="message-area">
+    <p>you can also send a message through the pop-up form below</p>
+    <button class="popup-btn" onclick="openPopup()">Open Form to Send Me a Message</button>
+  </div>
+
+  <footer>
+    © 2026 Jaed Delosa. All rights reserved.
+  </footer>
+</div>
+
+<!-- popup modal -->
+<div id="popupModal" class="modal-overlay" onclick="closeOnBackdrop(event)">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span>Send a message</span>
+      <button class="close-modal" onclick="closePopup()">&times;</button>
+    </div>
+    <iframe src="https://tally.so/r/mOMAqa" title="Contact form"></iframe>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('popupModal');
+  let scrollY = 0;
+
+  function openPopup() {
+    modal.classList.add('active');
+    scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+  }
+
+  function closePopup() {
+    modal.classList.remove('active');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, scrollY);
+  }
+
+  function closeOnBackdrop(e) {
+    if (e.target === modal) closePopup();
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) closePopup();
+  });
+</script>
+</body>
+</html>
