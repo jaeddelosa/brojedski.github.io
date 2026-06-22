@@ -3,248 +3,286 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jaed Delosa · JaedOS</title>
+  <title>Jaed Delosa · Link In Bio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #060a0f;
-      font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+      background: #080c14;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 2rem;
+      padding: 2rem 1.5rem;
     }
 
     .terminal {
-      background: #090d12;
-      border-radius: 14px;
       width: 100%;
       max-width: 860px;
-      border: 1px solid #1e2530;
+      background: #0b0f1a;
+      border-radius: 16px;
+      border: 1px solid #1e2535;
       overflow: hidden;
       box-shadow: 0 32px 64px rgba(0,0,0,0.6);
     }
 
-    /* ── titlebar ── */
-    .titlebar {
-      background: #111720;
-      padding: 13px 18px;
+    /* ── title bar ── */
+    .bar {
+      background: #131924;
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       gap: 8px;
-      border-bottom: 1px solid #1e2530;
-      user-select: none;
+      border-bottom: 1px solid #1e2535;
     }
-    .dot { width: 13px; height: 13px; border-radius: 50%; }
+    .dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
     .dot.r { background: #ff5f57; }
     .dot.y { background: #febc2e; }
     .dot.g { background: #28c840; }
-    .tb-title { color: #5a7a90; font-size: 13px; margin-left: 8px; letter-spacing: .04em; }
-    .tb-badge {
-      margin-left: auto;
-      font-size: 11px; color: #3de0a8;
-      border: 1px solid #1c4a38; background: #0b2820;
-      border-radius: 5px; padding: 3px 10px; letter-spacing: .06em;
+    .bar-title { color: #4a6a84; font-size: 13px; margin-left: 8px; }
+
+    /* ── body ── */
+    .body {
+      padding: 32px 36px 28px;
     }
 
-    /* ── screen ── */
-    .screen { padding: 26px 28px 28px; }
-
-    .boot-line {
-      color: #3de0a8; font-size: 13px; margin-bottom: 20px; letter-spacing: .04em;
+    .greeting {
+      font-size: 15px;
+      color: #57d9bc;
+      margin-bottom: 28px;
+      line-height: 1.7;
     }
-    .boot-line span { color: #4a6a80; }
-
-    /* ── profile ── */
-    .profile-row { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
-    .avatar {
-      width: 58px; height: 58px; border-radius: 50%;
-      border: 2px solid #2de0a8;
-      background: linear-gradient(135deg, #0f3028, #1a4a38);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; font-weight: 700; color: #3de0a8; letter-spacing: .05em;
-      flex-shrink: 0;
-    }
-    .profile-name { color: #e2eef9; font-size: 18px; font-weight: 700; letter-spacing: .04em; }
-    .profile-sub  { color: #4a6a80; font-size: 13px; margin-top: 4px; }
-
-    /* ── section label ── */
-    .section-label {
-      font-size: 11px; letter-spacing: .14em; color: #2a4a5a;
-      text-transform: uppercase; margin-bottom: 10px; padding-left: 2px;
+    .greeting .muted { color: #6a8ca8; }
+    .greeting .kbd {
+      color: #57d9bc;
+      border: 1px solid #2a4a3e;
+      border-radius: 5px;
+      padding: 1px 9px;
+      font-size: 13px;
     }
 
     /* ── menu grid ── */
-    .menu-grid {
+    .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      margin-bottom: 20px;
+      gap: 8px;
+      margin-bottom: 24px;
     }
-    .menu-item {
-      background: #0d1319; border: 1px solid #1a2230; border-radius: 8px;
-      padding: 11px 14px; display: flex; gap: 10px; align-items: center;
-      cursor: pointer; transition: background .13s, border-color .13s;
-    }
-    .menu-item:hover  { background: #121c26; border-color: #2de0a8; }
-    .menu-item.active { background: #0b2820; border-color: #2de0a8; }
-    .mn { color: #febc2e; font-size: 13px; font-weight: 700; min-width: 24px; }
-    .ml { color: #c8e0f0; font-size: 13px; }
 
-    /* ── command input ── */
-    .cmd-row {
-      background: #07090e; border: 1px solid #1a2230; border-radius: 8px;
-      padding: 11px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 16px;
+      border-radius: 10px;
+      background: #0f1420;
+      border: 1px solid #1e2535;
+      user-select: none;
+      transition: background 0.12s, border-color 0.12s;
     }
-    .cmd-ps    { color: #28c840; font-size: 14px; white-space: nowrap; }
-    .cmd-input {
-      background: transparent; border: none; color: #e8f6ff;
-      font-family: inherit; font-size: 14px; width: 100%; outline: none;
+    .row.active {
+      background: #112030;
+      border-color: #57d9bc;
     }
-    .cmd-input::placeholder { color: #2a3a48; }
 
-    /* ── status bar ── */
-    .status-bar {
-      background: #07090e; border: 1px solid #1a2230; border-radius: 6px;
-      padding: 8px 12px; font-size: 12px; color: #4a6a80;
-      display: flex; align-items: center; gap: 8px;
+    .row-num {
+      color: #f5c96a;
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 26px;
     }
-    .status-bar.ok  { color: #3de0a8; }
-    .status-bar.err { color: #f4826a; }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+    .row-label {
+      color: #c8dfee;
+      font-size: 13.5px;
+      flex: 1;
+    }
 
-    /* ── system bar ── */
-    .sysbar {
-      background: #0b1018; border-top: 1px solid #141c24;
-      padding: 8px 28px; display: flex; align-items: center; gap: 22px;
-      font-size: 11px; color: #2a4050;
+    /* ── divider ── */
+    .divider { border: none; border-top: 1px solid #171f2e; margin: 20px 0; }
+
+    /* ── input row ── */
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #07090f;
+      border: 1px solid #222c3d;
+      border-radius: 10px;
+      padding: 13px 18px;
     }
-    .sysbar-item { display: flex; align-items: center; gap: 6px; }
-    .sysbar-val  { color: #3a5a6a; }
+    .ps { color: #6fc47d; font-size: 15px; white-space: nowrap; }
+    #cmd {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #e4f0ff;
+      font-family: inherit;
+      font-size: 15px;
+      width: 100%;
+      caret-color: #57d9bc;
+    }
+    #cmd::placeholder { color: #2e3d52; }
+    .enter-btn {
+      flex-shrink: 0;
+      background: #182030;
+      border: 1px solid #2d4458;
+      border-radius: 7px;
+      color: #57d9bc;
+      font-family: inherit;
+      font-size: 13px;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: background 0.12s;
+      white-space: nowrap;
+    }
+    .enter-btn:hover { background: #1e2d42; }
+    .enter-btn:active { transform: scale(0.97); }
+
+    /* ── status ── */
+    .status {
+      margin-top: 14px;
+      font-size: 12.5px;
+      color: #4a6a84;
+      padding-top: 14px;
+      border-top: 1px solid #171f2e;
+      min-height: 20px;
+      line-height: 1.6;
+      transition: color 0.25s;
+    }
+    .status.ok   { color: #57d9bc; }
+    .status.err  { color: #f58b7a; }
+    .status.note { color: #f5c96a; }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: #1e2c3d;
+      text-align: center;
+    }
 
     /* ── responsive ── */
-    @media (max-width: 560px) {
-      body { padding: 1rem; }
-      .menu-grid { grid-template-columns: 1fr; }
-      .screen { padding: 16px; }
-      .profile-name { font-size: 15px; }
+    @media (max-width: 580px) {
+      .body { padding: 20px 18px 18px; }
+      .grid { grid-template-columns: 1fr; gap: 6px; }
+      .greeting { font-size: 13px; }
+      .row-label { font-size: 13px; }
     }
   </style>
 </head>
 <body>
+
 <div class="terminal">
-  <div class="titlebar">
+  <div class="bar">
     <div class="dot r"></div>
     <div class="dot y"></div>
     <div class="dot g"></div>
-    <span class="tb-title">jaed@jaedos ~ /link-in-bio</span>
-    <span class="tb-badge">JaedOS v2.6</span>
+    <span class="bar-title">jaed@terminal:~/link-in-bio</span>
   </div>
 
-  <div class="screen">
-    <div class="boot-line"><span>[ sys ] </span>session started · type a number + Enter to navigate</div>
-
-    <div class="profile-row">
-      <div class="avatar">JD</div>
-      <div>
-        <div class="profile-name">Jaed Delosa</div>
-        <div class="profile-sub">jaed@jaedos:~/link-in-bio &nbsp;·&nbsp; 12 links loaded</div>
-      </div>
+  <div class="body">
+    <div class="greeting">
+      <span style="color:#57d9bc;">➜</span>&nbsp;&nbsp;Hi, I'm <strong style="color:#e8f3ff;">Jaed</strong>. Good to see you here.<br>
+      <span class="muted">Type a number and press</span> <span class="kbd">Enter</span> <span class="muted">to open a link.</span>
     </div>
 
-    <div class="section-label">— available commands ——————————————</div>
-    <div class="menu-grid" id="menuGrid"></div>
+    <div class="grid" id="menuGrid"></div>
 
-    <div class="cmd-row">
-      <span class="cmd-ps">jaed@jaedos:~$</span>
-      <input class="cmd-input" id="cmdIn" type="text" placeholder="enter number (1–12)" autocomplete="off" spellcheck="false" autofocus>
-    </div>
-    <div class="status-bar" id="statusBar">
-      <div class="status-dot"></div>
-      <span id="statusText">ready — awaiting command</span>
-    </div>
-  </div>
+    <hr class="divider">
 
-  <div class="sysbar">
-    <div class="sysbar-item">proc <span class="sysbar-val" id="clockEl"></span></div>
-    <div class="sysbar-item">mem <span class="sysbar-val">2.6 MB</span></div>
-    <div class="sysbar-item">shell <span class="sysbar-val">jsh 1.0</span></div>
+    <div class="input-row">
+      <span class="ps">$&gt;</span>
+      <input id="cmd" type="text" inputmode="numeric" placeholder="enter number (1–12)" autocomplete="off" spellcheck="false">
+      <button class="enter-btn" id="enterBtn">↵ Enter</button>
+    </div>
+
+    <div class="status" id="statusBar">Ready. Use numbers 1–12 and press Enter.</div>
+    <div class="footer">© 2026 Jaed Delosa · all links open in a new tab</div>
   </div>
 </div>
 
 <script>
   const items = [
-    { num:1,  label:"send email",        url:"mailto:info@jaeddelosa.com" },
-    { num:2,  label:"work with me",      url:"https://workwithme.jaeddelosa.com" },
-    { num:3,  label:"digital store",     url:"https://mystore.jaeddelosa.com/" },
-    { num:4,  label:"medium articles",   url:"https://jaeddelosa.medium.com" },
-    { num:5,  label:"personal blog",     url:"https://blog.jaeddelosa.com" },
-    { num:6,  label:"linkedin",          url:"https://www.linkedin.com/in/jaeddelosa/" },
-    { num:7,  label:"whatsapp chat",     url:"https://api.whatsapp.com/send/?phone=639810848049&text&type=phone_number&app_absent=0" },
-    { num:8,  label:"signal convo",      url:"https://jaedd.talk4fun.net/" },
-    { num:9,  label:"travel discounts",  url:"https://www.klook.com/invite/XLMJBT?c=PHP" },
-    { num:10, label:"contact form",      url:"https://tally.so/r/mOMAqa" },
-    { num:11, label:"freelance note",    url:"NOTE" },
-    { num:12, label:"exit session",      url:"EXIT" },
+    { num: 1,  label: "📧  Send email",            url: "mailto:info@jaeddelosa.com" },
+    { num: 2,  label: "💼  Work With Me",           url: "https://workwithme.jaeddelosa.com" },
+    { num: 3,  label: "🛍️  Digital store",          url: "https://mystore.jaeddelosa.com/" },
+    { num: 4,  label: "📝  Medium articles",        url: "https://jaeddelosa.medium.com" },
+    { num: 5,  label: "✍️  Personal blog",          url: "https://blog.jaeddelosa.com" },
+    { num: 6,  label: "🔗  LinkedIn",               url: "https://www.linkedin.com/in/jaeddelosa/" },
+    { num: 7,  label: "💬  WhatsApp chat",          url: "https://api.whatsapp.com/send/?phone=639810848049&text&type=phone_number&app_absent=0" },
+    { num: 8,  label: "🔒  Signal conversation",    url: "https://jaedd.talk4fun.net/" },
+    { num: 9,  label: "✈️  Travel discounts",       url: "https://www.klook.com/invite/XLMJBT?c=PHP" },
+    { num: 10, label: "📬  Contact form",           url: "https://tally.so/r/mOMAqa" },
+    { num: 11, label: "📄  Show freelance note",    url: "NOTE" },
+    { num: 12, label: "🚪  Exit / clear screen",    url: "EXIT" }
   ];
 
-  const grid = document.getElementById('menuGrid');
-  grid.innerHTML = items.map(i => `
-    <div class="menu-item" id="mi${i.num}" onclick="run(${i.num})">
-      <span class="mn">${i.num}.</span>
-      <span class="ml">${i.label}</span>
-    </div>`).join('');
+  const freelanceNote = "📢 Freelance note: For business partnerships, reach out via email (1) or WhatsApp (7).";
 
-  const statusBar  = document.getElementById('statusBar');
-  const statusText = document.getElementById('statusText');
+  const grid     = document.getElementById("menuGrid");
+  const statusEl = document.getElementById("statusBar");
+  const cmdInput = document.getElementById("cmd");
+  const enterBtn = document.getElementById("enterBtn");
 
-  function setStatus(msg, type = '') {
-    statusBar.className = 'status-bar' + (type ? ' ' + type : '');
-    statusText.textContent = msg;
+  /* render menu — no links, no click handlers */
+  grid.innerHTML = items.map(it => `
+    <div class="row" id="row-${it.num}">
+      <span class="row-num">${it.num}.</span>
+      <span class="row-label">${it.label}</span>
+    </div>
+  `).join("");
+
+  function setStatus(msg, type) {
+    statusEl.textContent = msg;
+    statusEl.className = "status" + (type ? " " + type : "");
   }
 
-  function highlight(num) {
-    document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
-    const el = document.getElementById('mi' + num);
-    if (el) el.classList.add('active');
+  let lastHL = null;
+  function highlight(num, on) {
+    const el = document.getElementById("row-" + num);
+    if (el) el.classList.toggle("active", on);
   }
 
-  function run(num) {
-    const sel = items.find(i => i.num === num);
-    if (!sel) { setStatus('error — invalid command: ' + num, 'err'); return; }
-    highlight(num);
-    if (sel.url === 'NOTE') {
-      setStatus('freelance: contact via email (1) or whatsapp (7) for partnerships', 'ok');
-    } else if (sel.url === 'EXIT') {
-      setStatus('session terminated — reload to restart', '');
-      document.getElementById('cmdIn').value = '';
-    } else {
-      window.open(sel.url, '_blank', 'noopener,noreferrer');
-      setStatus('opening: ' + sel.label + ' ...', 'ok');
-    }
-  }
+  function run(raw) {
+    if (lastHL) { highlight(lastHL, false); lastHL = null; }
+    const trimmed = raw.trim();
 
-  document.getElementById('cmdIn').addEventListener('keydown', e => {
-    if (e.key !== 'Enter') return;
-    const val = e.target.value.trim();
-    e.target.value = '';
-    if (!val) { setStatus('enter a number from 1 to 12', ''); return; }
-    const n = parseInt(val, 10);
-    if (isNaN(n) || n < 1 || n > 12) {
-      setStatus('error — "' + val + '" is not a valid command (1–12)', 'err');
+    if (!trimmed) { setStatus("Type a number (1–12) and press Enter."); return; }
+
+    const num = parseInt(trimmed, 10);
+    if (isNaN(num) || String(num) !== trimmed) {
+      setStatus(`"${trimmed}" is not a valid number. Please use 1–12.`, "err");
       return;
     }
-    run(n);
-  });
 
-  function tick() {
-    document.getElementById('clockEl').textContent = new Date().toTimeString().slice(0, 8);
+    const item = items.find(i => i.num === num);
+    if (!item) {
+      setStatus(`${num} is out of range. Valid options: 1–12.`, "err");
+      return;
+    }
+
+    highlight(num, true);
+    lastHL = num;
+    setTimeout(() => { if (lastHL === num) { highlight(num, false); lastHL = null; } }, 1400);
+
+    if (item.url === "NOTE") {
+      setStatus(freelanceNote, "note");
+    } else if (item.url === "EXIT") {
+      setStatus("👋 Goodbye! Reload the page to restart.", "ok");
+    } else {
+      window.open(item.url, "_blank", "noopener,noreferrer");
+      setStatus(`✅ Opening: ${item.label.replace(/^\S+\s+/,"").trim()}…`, "ok");
+    }
   }
-  tick(); setInterval(tick, 1000);
+
+  cmdInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") { run(cmdInput.value); cmdInput.value = ""; }
+  });
+  enterBtn.addEventListener("click", () => { run(cmdInput.value); cmdInput.value = ""; cmdInput.focus(); });
+
+  cmdInput.focus();
 </script>
 </body>
 </html>
