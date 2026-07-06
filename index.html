@@ -1,288 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jaed Delosa · Link In Bio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaed Delosa</title>
+<style>
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: #fcfcf9;
+    color: #1a1a1a;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 40em;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 4rem;
+  }
 
-    body {
-      background: #080c14;
-      font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1.5rem;
-    }
+  a { color: #0b45c6; text-decoration: underline; }
+  a:visited { color: #6a2f9e; }
+  a:hover { color: #062a80; }
 
-    .terminal {
-      width: 100%;
-      max-width: 860px;
-      background: #0b0f1a;
-      border-radius: 16px;
-      border: 1px solid #1e2535;
-      overflow: hidden;
-      box-shadow: 0 32px 64px rgba(0,0,0,0.6);
-    }
+  header { margin-bottom: 1.75rem; }
+  h1 {
+    font-size: 2rem;
+    font-weight: normal;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.15rem;
+  }
+  .tagline {
+    font-style: italic;
+    color: #555;
+    margin: 0;
+  }
 
-    /* ── title bar ── */
-    .bar {
-      background: #131924;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px solid #1e2535;
-    }
-    .dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
-    .dot.r { background: #ff5f57; }
-    .dot.y { background: #febc2e; }
-    .dot.g { background: #28c840; }
-    .bar-title { color: #4a6a84; font-size: 13px; margin-left: 8px; }
+  .intro { margin: 0 0 1.75rem; }
 
-    /* ── body ── */
-    .body {
-      padding: 32px 36px 28px;
-    }
+  hr {
+    border: none;
+    border-top: 1px solid #d9d6cc;
+    margin: 1.75rem 0;
+  }
 
-    .greeting {
-      font-size: 15px;
-      color: #57d9bc;
-      margin-bottom: 28px;
-      line-height: 1.7;
-    }
-    .greeting .muted { color: #6a8ca8; }
-    .greeting .kbd {
-      color: #57d9bc;
-      border: 1px solid #2a4a3e;
-      border-radius: 5px;
-      padding: 1px 9px;
-      font-size: 13px;
-    }
+  h2 {
+    font-size: 0.82rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #8a7f66;
+    margin: 0 0 0.6rem;
+  }
 
-    /* ── menu grid ── */
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
+  ul { list-style: none; margin: 0 0 0.25rem; padding: 0; }
+  li { margin: 0.35rem 0; }
+  li .desc { color: #666; font-size: 0.9rem; font-style: italic; }
 
-    .row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 13px 16px;
-      border-radius: 10px;
-      background: #0f1420;
-      border: 1px solid #1e2535;
-      user-select: none;
-      transition: background 0.12s, border-color 0.12s;
-    }
-    .row.active {
-      background: #112030;
-      border-color: #57d9bc;
-    }
+  .note {
+    font-size: 0.95rem;
+    color: #444;
+    background: #f3f1e8;
+    border-left: 3px solid #c9c2ac;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0 0;
+  }
 
-    .row-num {
-      color: #f5c96a;
-      font-size: 13px;
-      font-weight: 600;
-      min-width: 26px;
-    }
-    .row-label {
-      color: #c8dfee;
-      font-size: 13.5px;
-      flex: 1;
-    }
+  footer {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #d9d6cc;
+    font-size: 0.82rem;
+    color: #8a8578;
+  }
 
-    /* ── divider ── */
-    .divider { border: none; border-top: 1px solid #171f2e; margin: 20px 0; }
-
-    /* ── input row ── */
-    .input-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #07090f;
-      border: 1px solid #222c3d;
-      border-radius: 10px;
-      padding: 13px 18px;
-    }
-    .ps { color: #6fc47d; font-size: 15px; white-space: nowrap; }
-    #cmd {
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #e4f0ff;
-      font-family: inherit;
-      font-size: 15px;
-      width: 100%;
-      caret-color: #57d9bc;
-    }
-    #cmd::placeholder { color: #2e3d52; }
-    .enter-btn {
-      flex-shrink: 0;
-      background: #182030;
-      border: 1px solid #2d4458;
-      border-radius: 7px;
-      color: #57d9bc;
-      font-family: inherit;
-      font-size: 13px;
-      padding: 7px 16px;
-      cursor: pointer;
-      transition: background 0.12s;
-      white-space: nowrap;
-    }
-    .enter-btn:hover { background: #1e2d42; }
-    .enter-btn:active { transform: scale(0.97); }
-
-    /* ── status ── */
-    .status {
-      margin-top: 14px;
-      font-size: 12.5px;
-      color: #4a6a84;
-      padding-top: 14px;
-      border-top: 1px solid #171f2e;
-      min-height: 20px;
-      line-height: 1.6;
-      transition: color 0.25s;
-    }
-    .status.ok   { color: #57d9bc; }
-    .status.err  { color: #f58b7a; }
-    .status.note { color: #f5c96a; }
-
-    .footer {
-      margin-top: 18px;
-      font-size: 11px;
-      color: #1e2c3d;
-      text-align: center;
-    }
-
-    /* ── responsive ── */
-    @media (max-width: 580px) {
-      .body { padding: 20px 18px 18px; }
-      .grid { grid-template-columns: 1fr; gap: 6px; }
-      .greeting { font-size: 13px; }
-      .row-label { font-size: 13px; }
-    }
-  </style>
+  @media (max-width: 480px) {
+    body { font-size: 17px; padding: 3rem 1.25rem; }
+    h1 { font-size: 1.7rem; }
+  }
+</style>
 </head>
 <body>
 
-<div class="terminal">
-  <div class="bar">
-    <div class="dot r"></div>
-    <div class="dot y"></div>
-    <div class="dot g"></div>
-    <span class="bar-title">jaed@terminal:~/link-in-bio</span>
-  </div>
+  <header>
+    <h1>Jaed Delosa</h1>
+    <p class="tagline">Writer &amp; freelancer</p>
+  </header>
 
-  <div class="body">
-    <div class="greeting">
-      <span style="color:#57d9bc;">➜</span>&nbsp;&nbsp;Hi, I'm <strong style="color:#e8f3ff;">Jaed</strong>. Good to see you here.<br>
-      <span class="muted">Type a number and press</span> <span class="kbd">Enter</span> <span class="muted">to open a link.</span>
-    </div>
+  <p class="intro">
+    Hi, I&rsquo;m Jaed. This is my page. A short index of the places
+    you can read my work, reach me, or work with me is below.
+  </p>
 
-    <div class="grid" id="menuGrid"></div>
+  <hr>
 
-    <hr class="divider">
+  <h2>Contact</h2>
+  <ul>
+    <li><a href="mailto:info@jaeddelosa.com">Email</a> &mdash; <span class="desc">info@jaeddelosa.com</span></li>
+    <li><a href="https://api.whatsapp.com/send/?phone=639810848049&amp;text&amp;type=phone_number&amp;app_absent=0">WhatsApp</a></li>
+    <li><a href="https://jaedd.talk4fun.net/">Signal</a></li>
+    <li><a href="https://tally.so/r/mOMAqa">Contact form</a></li>
+  </ul>
 
-    <div class="input-row">
-      <span class="ps">$&gt;</span>
-      <input id="cmd" type="text" inputmode="numeric" placeholder="enter number (1–12)" autocomplete="off" spellcheck="false">
-      <button class="enter-btn" id="enterBtn">↵ Enter</button>
-    </div>
+  <hr>
 
-    <div class="status" id="statusBar">Ready. Use numbers 1–12 and press Enter.</div>
-    <div class="footer">© 2026 Jaed Delosa · all links open in a new tab</div>
-  </div>
-</div>
+  <h2>Work with me</h2>
+  <ul>
+    <li><a href="https://workwithme.jaeddelosa.com">Services &amp; availability</a></li>
+    <li><a href="https://mystore.jaeddelosa.com/">Digital store</a></li>
+  </ul>
 
-<script>
-  const items = [
-    { num: 1,  label: "📧  Send email",            url: "mailto:info@jaeddelosa.com" },
-    { num: 2,  label: "💼  Work With Me",           url: "https://workwithme.jaeddelosa.com" },
-    { num: 3,  label: "🛍️  Digital store",          url: "https://mystore.jaeddelosa.com/" },
-    { num: 4,  label: "📝  Medium articles",        url: "https://jaeddelosa.medium.com" },
-    { num: 5,  label: "✍️  Personal blog",          url: "https://blog.jaeddelosa.com" },
-    { num: 6,  label: "🔗  LinkedIn",               url: "https://www.linkedin.com/in/jaeddelosa/" },
-    { num: 7,  label: "💬  WhatsApp chat",          url: "https://api.whatsapp.com/send/?phone=639810848049&text&type=phone_number&app_absent=0" },
-    { num: 8,  label: "🔒  Signal conversation",    url: "https://jaedd.talk4fun.net/" },
-    { num: 9,  label: "✈️  Travel discounts",       url: "https://www.klook.com/invite/XLMJBT?c=PHP" },
-    { num: 10, label: "📬  Contact form",           url: "https://tally.so/r/mOMAqa" },
-    { num: 11, label: "📄  Show freelance note",    url: "NOTE" },
-    { num: 12, label: "🚪  Exit / clear screen",    url: "EXIT" }
-  ];
+  <hr>
 
-  const freelanceNote = "📢 Freelance note: For business partnerships, reach out via email (1) or WhatsApp (7).";
+  <h2>Writing</h2>
+  <ul>
+    <li><a href="https://blog.jaeddelosa.com">Personal blog</a></li>
+    <li><a href="https://jaeddelosa.medium.com">Articles on Medium</a></li>
+  </ul>
 
-  const grid     = document.getElementById("menuGrid");
-  const statusEl = document.getElementById("statusBar");
-  const cmdInput = document.getElementById("cmd");
-  const enterBtn = document.getElementById("enterBtn");
+  <hr>
 
-  /* render menu — no links, no click handlers */
-  grid.innerHTML = items.map(it => `
-    <div class="row" id="row-${it.num}">
-      <span class="row-num">${it.num}.</span>
-      <span class="row-label">${it.label}</span>
-    </div>
-  `).join("");
+  <h2>Elsewhere</h2>
+  <ul>
+    <li><a href="https://www.linkedin.com/in/jaeddelosa/">LinkedIn</a></li>
+    <li><a href="https://www.klook.com/invite/XLMJBT?c=PHP">Travel discounts (Klook)</a></li>
+  </ul>
 
-  function setStatus(msg, type) {
-    statusEl.textContent = msg;
-    statusEl.className = "status" + (type ? " " + type : "");
-  }
+  <p class="note">
+    <strong>For business partnerships</strong>, reach out by
+    <a href="mailto:info@jaeddelosa.com">email</a> or
+    <a href="https://api.whatsapp.com/send/?phone=639810848049&amp;text&amp;type=phone_number&amp;app_absent=0">WhatsApp</a>.
+    I usually reply within a business day.
+  </p>
 
-  let lastHL = null;
-  function highlight(num, on) {
-    const el = document.getElementById("row-" + num);
-    if (el) el.classList.toggle("active", on);
-  }
+  <footer>
+    &copy; 2026 Jaed Delosa
+  </footer>
 
-  function run(raw) {
-    if (lastHL) { highlight(lastHL, false); lastHL = null; }
-    const trimmed = raw.trim();
-
-    if (!trimmed) { setStatus("Type a number (1–12) and press Enter."); return; }
-
-    const num = parseInt(trimmed, 10);
-    if (isNaN(num) || String(num) !== trimmed) {
-      setStatus(`"${trimmed}" is not a valid number. Please use 1–12.`, "err");
-      return;
-    }
-
-    const item = items.find(i => i.num === num);
-    if (!item) {
-      setStatus(`${num} is out of range. Valid options: 1–12.`, "err");
-      return;
-    }
-
-    highlight(num, true);
-    lastHL = num;
-    setTimeout(() => { if (lastHL === num) { highlight(num, false); lastHL = null; } }, 1400);
-
-    if (item.url === "NOTE") {
-      setStatus(freelanceNote, "note");
-    } else if (item.url === "EXIT") {
-      setStatus("👋 Goodbye! Reload the page to restart.", "ok");
-    } else {
-      window.open(item.url, "_blank", "noopener,noreferrer");
-      setStatus(`✅ Opening: ${item.label.replace(/^\S+\s+/,"").trim()}…`, "ok");
-    }
-  }
-
-  cmdInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") { run(cmdInput.value); cmdInput.value = ""; }
-  });
-  enterBtn.addEventListener("click", () => { run(cmdInput.value); cmdInput.value = ""; cmdInput.focus(); });
-
-  cmdInput.focus();
-</script>
 </body>
 </html>
